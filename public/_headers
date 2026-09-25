@@ -1,7 +1,10 @@
 # Cloudflare Pages response headers
 
-# Keep the temporary *.pages.dev address out of Google so it never competes with the real domain
+# Keep the temporary Cloudflare addresses out of Google so they never compete with the real domain
 https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:worker.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
 
 # Next.js build assets have content hashes in their names, so they can be cached forever

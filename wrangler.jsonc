@@ -1,0 +1,14 @@
+// Cloudflare Workers: serve the static export in out/ (no server code, no OpenNext adapter).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aginsight",
+  "compatibility_date": "2026-09-23",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
