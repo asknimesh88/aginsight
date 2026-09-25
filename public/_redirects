@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects. Old WordPress front-page URLs -> homepage (permanent).
+/home-2024/ / 301
+/home-2024 / 301
+/home-1/ / 301
+/home-1 / 301

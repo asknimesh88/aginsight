@@ -9,3 +9,14 @@ Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka.
 Content (dates, speakers, themes, links, committee) lives in `lib/site.ts`.
 Images and documents live in `public/`. `scripts/import-assets.mjs` was a one-off import
 from the restored WordPress backup.
+
+## Hosting (Cloudflare Pages)
+
+Connected to GitHub: every push to `main` rebuilds and deploys the site.
+
+- Build command: `npm run build`
+- Build output directory: `out`
+- Environment variable: `NODE_VERSION` = `22`
+
+`public/_redirects` holds permanent redirects and `public/_headers` sets caching and security headers.
+The `*.pages.dev` preview address is served with `noindex` so only the real domain is indexed.
