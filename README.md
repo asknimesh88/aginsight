@@ -18,3 +18,12 @@ Connected to GitHub: every push to `main` rebuilds and deploys the site.
 
 `public/_redirects` holds permanent redirects and `public/_headers` sets caching and security headers.
 The temporary `*.workers.dev` / `*.pages.dev` addresses are served with `noindex` so only the real domain is indexed.
+
+## Hosting (university server)
+
+`.github/workflows/deploy-server.yml` builds the site on every push to `main` and syncs `out/` to
+`/var/www/html/aginsight/` on aginsight.agri.sab.ac.lk (Apache) over SSH. It needs the repository
+secret `SERVER_SSH_KEY`. `public/.htaccess` holds the Apache redirects, headers and caching rules;
+Cloudflare skips it via `public/.assetsignore`.
+
+To publish a change: commit and push to `main`. Both hosts update automatically.
