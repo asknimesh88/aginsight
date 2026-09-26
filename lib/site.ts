@@ -47,7 +47,7 @@ export const tracks = [
   { title: "Agriculture and Agri-environment", photo: "aerial-tractor-ploughing", alt: "Aerial view of a tractor ploughing rows in a green field" },
   { title: "Agribusiness and Agricultural Economics", photo: "tomatoes-market", alt: "Fresh tomatoes on the vine piled high at a market" },
   { title: "Community Development and Nutrition Security", photo: "farmer-walking-cattle", alt: "A woman farmer walking her cattle along a village road" },
-  { title: "Livestock and Aquaculture", photo: "aerial-fishing-boat", alt: "Aerial view of a fishing boat hauling a net across green water" },
+  { title: "Livestock and Aquaculture", photo: "cow-in-pasture", alt: "A brown dairy cow with ear tags grazing in a green pasture", focus: "50% 20%" },
   { title: "One Health and Food Safety", photo: "chick-in-hand", alt: "A farmer gently holding a young chick in an open hand" },
 ];
 

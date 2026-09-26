@@ -19,6 +19,7 @@ export function TrackGrid({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" 
             alt={t.alt}
             sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
             className={`absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105`}
+            position={"focus" in t ? t.focus : undefined}
           />
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-field via-field/65 to-field/5" />
           <div className={`flex flex-col justify-end p-6 sm:p-8 ${i < 2 ? "min-h-72 lg:min-h-80" : "min-h-64"}`}>
