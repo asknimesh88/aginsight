@@ -1,31 +1,44 @@
+import Link from "next/link";
 import { PageTitle, Heading } from "@/components/ui";
-import { committee, conf } from "@/lib/site";
 import JsonLd from "@/components/json-ld";
+import { committee, conf } from "@/lib/site";
 import { breadcrumbs, graph, pageMeta, webPage, ORG_ID } from "@/lib/seo";
 
-const secretary = committee.find((c) => c.role === "Conference Secretary")!;
 const address = "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya 70140, Sri Lanka";
-// "Dr. R. K. C. Jeewanthi" -> "RJ": first and last initial, ignoring the title
+
+// "Dr. R. N. N. Perera" -> "RP": first and last initial, ignoring the title
 const initials = (name: string) => {
-  const w = name.replace(/^(Prof|Dr|Mr|Ms|Mrs)\.\s*/, "").split(/\s+/);
+  const w = name.replace(/^(Prof|Professor|Dr|Mr|Ms|Mrs)\.?\s*/, "").split(/\s+/);
   return w[0][0] + w[w.length - 1][0];
 };
 
 const channels = [
   { title: "Email", value: conf.email, href: `mailto:${conf.email}`, action: "Send an email", d: "M3 6h18v12H3zM3 7l9 6 9-6" },
-  { title: "Phone", value: secretary.phone!, href: `tel:${secretary.phone!.replace(/\s/g, "")}`, action: "Call the secretary", d: "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" },
   { title: "Address", value: address, href: conf.mapUrl, action: "Get directions", d: "M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11zM12 12a2 2 0 100-4 2 2 0 000 4z" },
 ];
 
 const seo = {
   path: "/contact-us/",
-  title: "Contact Us",
-  description: "Contact the AgInsight 2024 conference secretariat at the Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya, by email or phone.",
-  keywords: ["AgInsight contact", "AgInsight conference secretariat", "Faculty of Agricultural Sciences contact", "Sabaragamuwa University Belihuloya"],
+  title: "Contact Us 2027",
+  description: "Contact the AgInsight 2027 organising committee at the Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya, by email.",
+  keywords: ["AgInsight 2027 contact", "AgInsight organising committee", "Faculty of Agricultural Sciences contact", "Sabaragamuwa University Belihuloya"],
 };
 export const metadata = pageMeta(seo);
 const schema = graph(
-  webPage({ ...seo, type: "ContactPage", extra: { mainEntity: { "@id": ORG_ID } } }),
+  webPage({
+    ...seo,
+    type: "ContactPage",
+    extra: {
+      mainEntity: { "@id": ORG_ID },
+      mentions: committee.map((c) => ({
+        "@type": "Person",
+        name: c.name,
+        jobTitle: `${c.role}, ${conf.name}`,
+        ...(c.email && { email: c.email }),
+        ...(c.phone && { telephone: c.phone }),
+      })),
+    },
+  }),
   breadcrumbs([{ name: "Contact Us", path: seo.path }]),
 );
 
@@ -33,24 +46,26 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Contact us" lead="Questions about submissions, registration or the venue? The conference secretariat is here to help." />
+      <PageTitle title="Contact Us" lead={`Questions about ${conf.name} submissions, registration or the venue? The organising committee is here to help.`} />
 
       {/* Channels */}
       <section className="mx-auto max-w-6xl px-4 py-24">
-        <ul className="grid gap-6 md:grid-cols-3">
+        <ul className="grid gap-6 md:grid-cols-2">
           {channels.map((c) => (
             <li key={c.title}>
               <a
                 href={c.href}
                 {...(c.href.startsWith("http") && { target: "_blank", rel: "noopener" })}
-                className="group flex h-full flex-col rounded-3xl border border-black/5 bg-white p-8 shadow-sm transition-colors hover:bg-field hover:text-white"
+                className="group flex h-full gap-6 rounded-3xl border border-black/5 bg-white p-8 shadow-sm transition-colors hover:bg-field hover:text-white"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white group-hover:bg-secondary" aria-hidden>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-white group-hover:bg-secondary" aria-hidden>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={c.d} /></svg>
                 </span>
-                <h2 className="mt-6 text-sm font-medium text-primary group-hover:text-secondary">{c.title}</h2>
-                <p className="mt-1 break-words font-slab text-lg font-semibold leading-snug">{c.value}</p>
-                <span className="mt-auto pt-6 text-sm font-medium underline underline-offset-4">{c.action}</span>
+                <span className="flex flex-col">
+                  <span className="text-sm font-medium text-primary group-hover:text-secondary">{c.title}</span>
+                  <span className="mt-1 break-words font-slab text-lg font-semibold leading-snug">{c.value}</span>
+                  <span className="mt-4 text-sm font-medium underline underline-offset-4">{c.action}</span>
+                </span>
               </a>
             </li>
           ))}
@@ -60,21 +75,18 @@ export default function Page() {
       {/* Committee */}
       <section className="bg-leaf">
         <div className="mx-auto max-w-6xl px-4 py-24">
-          <Heading title="Organising committee" lead="Reach the secretariat by phone for anything urgent." />
-          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Heading title="Organising committee" lead={`The ${conf.name} working committee.`} />
+          <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {committee.map((c) => (
               <li key={c.name} className="flex flex-col rounded-3xl bg-white p-8 shadow-sm">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-field font-slab text-lg font-semibold text-white" aria-hidden>
                   {initials(c.name)}
                 </span>
-                <h3 className="mt-5 font-slab text-lg font-semibold leading-snug">{c.name}</h3>
-                <p className="mt-1 text-sm text-muted">{c.role}</p>
-                <div className="mt-auto pt-5 text-sm">
-                  {c.phone ? (
-                    <a href={`tel:${c.phone.replace(/\s/g, "")}`} className="font-medium text-primary hover:text-field">{c.phone}</a>
-                  ) : (
-                    <a href={`mailto:${conf.email}`} className="font-medium text-primary hover:text-field">Email the secretariat</a>
-                  )}
+                <p className="mt-5 text-sm font-medium text-primary">{c.role}</p>
+                <h3 className="mt-1 font-slab text-xl font-semibold leading-snug">{c.name}</h3>
+                <div className="mt-auto flex flex-col gap-1 pt-5 text-sm">
+                  {c.phone && <a href={`tel:${c.phone.replace(/\s/g, "")}`} className="font-medium text-primary hover:text-field">{c.phone}</a>}
+                  <a href={`mailto:${c.email ?? conf.email}`} className="font-medium text-primary hover:text-field">{c.email ?? "Email the committee"}</a>
                 </div>
               </li>
             ))}
@@ -95,6 +107,9 @@ export default function Page() {
           />
         </div>
         <p className="mt-4 text-sm text-muted">The 250-acre campus sits in the hills of Belihuloya, 162 km from Colombo.</p>
+        <p className="mt-8 text-sm text-muted">
+          Looking for the previous edition? See the <Link href="/contact-us-2024/" className="text-primary underline underline-offset-4">AgInsight 2024 contacts</Link>.
+        </p>
       </section>
     </>
   );

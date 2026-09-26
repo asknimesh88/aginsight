@@ -1,8 +1,8 @@
 import { PageTitle, Heading, Button } from "@/components/ui";
-import { conf, people, type Person } from "@/lib/site";
+import { conf2024 as conf, people, type Person } from "@/lib/site";
 import JsonLd from "@/components/json-ld";
 import KeynoteProfile from "@/components/profile";
-import { breadcrumbs, graph, pageMeta, personSchema, webPage } from "@/lib/seo";
+import { breadcrumbs, graph, pageMeta, personSchema, webPage, EVENT_2024_ID } from "@/lib/seo";
 
 function PersonCard({ p }: { p: Person }) {
   return (
@@ -25,14 +25,14 @@ function PersonCard({ p }: { p: Person }) {
 
 const seo = {
   path: "/chief-guest-and-keynote-speakers/",
-  title: "Chief Guest and Keynote Speakers",
+  title: "AgInsight 2024 Chief Guest and Keynote Speakers",
   description: "Meet the AgInsight 2024 keynote speaker Prof. Harold Corke, chief guest Snr. Prof. Sampath Amarathunga, the guest of honour and plenary session speakers.",
   keywords: ["AgInsight keynote speakers", "AgInsight 2024 chief guest", "Prof. Harold Corke", "agriculture conference speakers Sri Lanka"],
   image: { url: "/people/harold-corke.jpg", alt: "Prof. Harold Corke, AgInsight 2024 keynote speaker" },
 };
 export const metadata = pageMeta(seo);
 const schema = graph(
-  webPage({ ...seo, type: "CollectionPage", image: seo.image.url }),
+  webPage({ ...seo, type: "CollectionPage", image: seo.image.url, about: EVENT_2024_ID }),
   breadcrumbs([{ name: "Chief Guest and Keynote Speakers", path: seo.path }]),
   {
     "@type": "ItemList",
@@ -53,7 +53,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Chief Guest and Keynote Speakers" lead={`The keynote speaker, guests of honour and plenary speakers at ${conf.name}.`} />
+      <PageTitle title="AgInsight 2024 Chief Guest and Keynote Speakers" lead={`The keynote speaker, guests of honour and plenary speakers at ${conf.name}.`} />
 
       <KeynoteProfile
         p={keynote}
@@ -86,7 +86,7 @@ export default function Page() {
             <p className="mt-3 text-lg text-white/75">Registration is free. Attend in person at SUSL or join online.</p>
           </div>
           <div className="flex flex-wrap gap-3 md:shrink-0">
-            <Button href={conf.registerUrl}>Register for free</Button>
+            <Button href="/">See AgInsight 2027</Button>
             <Button href="/important-dates/" variant="ghost">See the dates</Button>
           </div>
         </div>

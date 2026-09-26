@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { conf, nav } from "@/lib/site";
+import { conf, nav, submitHref } from "@/lib/site";
+
+const ctaLabel = conf.submitUrl ? "Submit abstract" : "Call for papers";
 
 export default function Header() {
   const path = usePathname();
@@ -45,8 +47,8 @@ export default function Header() {
               </Link>
             ),
           )}
-          <a href={conf.submitUrl} className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[15px] font-medium text-white hover:bg-field">
-            Submit abstract
+          <a href={submitHref} className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[15px] font-medium text-white hover:bg-field">
+            {ctaLabel}
           </a>
         </nav>
 
@@ -64,8 +66,8 @@ export default function Header() {
                 {c.label}
               </Link>
             ))}
-            <a href={conf.submitUrl} className="mt-5 block rounded-full bg-primary py-3 text-center font-medium text-white">
-              Submit abstract
+            <a href={submitHref} className="mt-5 block rounded-full bg-primary py-3 text-center font-medium text-white">
+              {ctaLabel}
             </a>
           </nav>
         </details>

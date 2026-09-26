@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { calendarUrl, committee, conf, nav, usefulLinks } from "@/lib/site";
+import { calendarUrl, committee, conf, nav, submitHref, usefulLinks } from "@/lib/site";
 
 export function PageTitle({ title, lead }: { title: string; lead?: string }) {
   return (
@@ -47,13 +47,14 @@ const icons = {
   mail: "M3 6h18v12H3zM3 7l9 6 9-6",
   phone: "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z",
   up: "M12 19V5M6 11l6-6 6 6",
+  user: "M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0",
 };
 
 export function Venue() {
   const rows = [
     { icon: icons.calendar, label: "When", value: conf.dates },
     { icon: icons.pin, label: "Where", value: conf.venue },
-    { icon: icons.globe, label: "Format", value: `${conf.format}: attend in person or online` },
+    { icon: icons.globe, label: "Format", value: `${conf.format}, with professional and student forums` },
   ];
   return (
     <section className="mx-auto max-w-6xl px-4 pb-24">
@@ -88,7 +89,9 @@ export function Venue() {
 }
 
 export function Footer() {
-  const contact = committee.filter((c) => c.phone);
+  const [current, past] = nav;
+  const col = "font-slab text-lg font-semibold text-white";
+  const link = "transition-colors hover:text-secondary";
   return (
     <footer className="border-t-4 border-secondary bg-field text-white/75">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-14 pt-20 lg:grid-cols-12">
@@ -102,49 +105,45 @@ export function Footer() {
           <p className="mt-4 text-sm leading-relaxed">
             {conf.dates}
             <br />
-            Sabaragamuwa University of Sri Lanka, Belihuloya
+            Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka
           </p>
         </div>
 
         {/* Links */}
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8">
           <div>
-            <h2 className="font-slab text-lg font-semibold text-white">Conference</h2>
+            <h2 className={col}>{current.label}</h2>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
-              {nav[0].children!.map((l) => (
-                <li key={l.href}><Link href={l.href} className="transition-colors hover:text-secondary">{l.label}</Link></li>
+              {[...current.children!, ...nav.slice(2)].map((l) => (
+                <li key={l.href}><Link href={l.href} className={link}>{l.label}</Link></li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="font-slab text-lg font-semibold text-white">Plan your visit</h2>
+            <h2 className={col}>{past.label}</h2>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
-              {nav.slice(1).map((l) => (
-                <li key={l.href}><Link href={l.href} className="transition-colors hover:text-secondary">{l.label}</Link></li>
-              ))}
-              {usefulLinks.map((l) => (
-                <li key={l.href}><a href={l.href} target="_blank" rel="noopener" className="transition-colors hover:text-secondary">{l.label}</a></li>
+              {past.children!.map((l) => (
+                <li key={l.href}><Link href={l.href} className={link}>{l.label}</Link></li>
               ))}
             </ul>
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <h2 className="font-slab text-lg font-semibold text-white">Get in touch</h2>
+            <h2 className={col}>Get in touch</h2>
             <ul className="mt-5 flex flex-col gap-4 text-sm">
               <li>
-                <a href={`mailto:${conf.email}`} className="flex gap-3 transition-colors hover:text-secondary">
+                <a href={`mailto:${conf.email}`} className={`flex gap-3 ${link}`}>
                   <Icon d={icons.mail} className="mt-0.5 shrink-0 text-secondary" />
                   <span className="break-all">{conf.email}</span>
                 </a>
               </li>
-              {contact.map((c) => (
-                <li key={c.name}>
-                  <a href={`tel:${c.phone!.replace(/\s/g, "")}`} className="flex gap-3 transition-colors hover:text-secondary">
-                    <Icon d={icons.phone} className="mt-0.5 shrink-0 text-secondary" />
-                    <span>
-                      <span className="block text-white">{c.phone}</span>
-                      <span className="block text-white/60">{c.name.replace(/^Mr\.\s*/, "")}, {c.role.replace("Conference ", "")}</span>
-                    </span>
-                  </a>
+              {committee.map((c) => (
+                <li key={c.name} className="flex gap-3">
+                  <Icon d={c.phone ? icons.phone : icons.user} className="mt-0.5 shrink-0 text-secondary" />
+                  <span>
+                    <span className="block text-white">{c.name}</span>
+                    <span className="block text-white/60">{c.role}</span>
+                    {c.phone && <a href={`tel:${c.phone.replace(/\s/g, "")}`} className={link}>{c.phone}</a>}
+                  </span>
                 </li>
               ))}
               <li className="flex gap-3">
@@ -159,13 +158,37 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-white/60">
           <p>© {new Date().getFullYear()} Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka</p>
-          <a href="#" className="inline-flex items-center gap-2 transition-colors hover:text-white">
-            Back to top
-            <Icon d={icons.up} />
-          </a>
+          <div className="flex flex-wrap items-center gap-6">
+            {usefulLinks.slice(0, 2).map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noopener" className="hover:text-white">{l.label}</a>
+            ))}
+            <a href="#" className="inline-flex items-center gap-2 hover:text-white">
+              Back to top
+              <Icon d={icons.up} />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+// Responsive WebP photo from public/photos (generated by scripts/import-photos-2027.mjs)
+export function Photo({ name, alt, sizes = "(min-width: 1024px) 50vw, 100vw", className = "", eager }: {
+  name: string; alt: string; sizes?: string; className?: string; eager?: boolean;
+}) {
+  return (
+    <img
+      src={`/photos/${name}-800.webp`}
+      srcSet={`/photos/${name}-800.webp 800w, /photos/${name}-1600.webp 1600w`}
+      sizes={sizes}
+      alt={alt}
+      width={1600}
+      height={1067}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      className={className}
+    />
   );
 }
 
@@ -197,7 +220,7 @@ export function CtaCard({ title, text, secondary }: { title: string; text: strin
           <p className="mt-3 text-lg text-white/75">{text}</p>
         </div>
         <div className="flex flex-wrap gap-3 md:shrink-0">
-          <Button href={conf.submitUrl}>Submit your abstract</Button>
+          <Button href={submitHref}>{conf.submitUrl ? "Submit your abstract" : "Read the call for papers"}</Button>
           {secondary && <Button href={secondary.href} variant="ghost">{secondary.label}</Button>}
         </div>
       </div>

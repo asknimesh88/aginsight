@@ -1,5 +1,6 @@
 import { PageTitle, Heading, Button } from "@/components/ui";
 import CopyButton from "@/components/copy-button";
+import { FeesTable } from "@/components/edition";
 import JsonLd from "@/components/json-ld";
 import { breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
 
@@ -25,8 +26,8 @@ const Icon = ({ d }: { d: string }) => (
 const seo = {
   path: "/payments/",
   title: "Payments",
-  description: "Pay AgInsight 2024 conference fees by direct deposit to the Sabaragamuwa University of Sri Lanka Bank of Ceylon account or online through the payment portal.",
-  keywords: ["AgInsight payments", "AgInsight 2024 registration fee", "Sabaragamuwa University payment", "conference payment Sri Lanka"],
+  description: "AgInsight 2027 registration fees and how to pay: direct deposit to the Sabaragamuwa University of Sri Lanka Bank of Ceylon account or online.",
+  keywords: ["AgInsight payments", "AgInsight 2027 registration fee", "Sabaragamuwa University payment", "conference payment Sri Lanka"],
 };
 export const metadata = pageMeta(seo);
 const schema = graph(webPage(seo), breadcrumbs([{ name: "Payments", path: seo.path }]));
@@ -36,6 +37,15 @@ export default function Page() {
     <>
       <JsonLd data={schema} />
       <PageTitle title="Payments" lead="Pay by direct bank deposit or online through the university’s payment portal." />
+
+      <section className="bg-leaf">
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <Heading title="AgInsight 2027 registration fees" lead="Early bird rates apply until 22 January 2027; regular rates until 12 February 2027." />
+          <div className="mt-12">
+            <FeesTable />
+          </div>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-6xl px-4 py-24">
         <Heading title="Choose how to pay" />

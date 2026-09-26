@@ -1,11 +1,11 @@
 import { PageTitle, Button, CtaCard } from "@/components/ui";
 import JsonLd from "@/components/json-ld";
-import { conf, docs } from "@/lib/site";
-import { abs, breadcrumbs, event, graph, pageMeta, webPage } from "@/lib/seo";
+import { conf2024 as conf, docs } from "@/lib/site";
+import { abs, breadcrumbs, event2024 as event, graph, pageMeta, webPage, EVENT_2024_ID } from "@/lib/seo";
 
 const seo = {
   path: "/aginsight-flyer/",
-  title: "AgInsight Flyer",
+  title: "AgInsight 2024 Flyer",
   description: "The official AgInsight 2024 flyer: conference tracks, keynote speaker, abstract deadline and contacts for the International Conference of Agricultural Sciences.",
   keywords: ["AgInsight flyer", "AgInsight 2024 flyer", "AgInsight poster", "International Conference of Agricultural Sciences 2024"],
   image: { url: docs.flyer, alt: `${conf.name} flyer` },
@@ -15,6 +15,7 @@ const schema = graph(
   webPage({
     ...seo,
     image: docs.flyer,
+    about: EVENT_2024_ID,
     extra: {
       mainEntity: {
         "@type": "ImageObject",

@@ -1,107 +1,142 @@
-import { PageTitle, Heading, CtaCard } from "@/components/ui";
-import { conf, themes } from "@/lib/site";
+import Link from "next/link";
+import { PageTitle, Heading, Button, Photo, Venue } from "@/components/ui";
+import { TrackGrid } from "@/components/edition";
 import JsonLd from "@/components/json-ld";
+import { about, conf, dates, deadline, focusAreas, fmtDate, publication, themeRationale } from "@/lib/site";
 import { breadcrumbs, event, graph, pageMeta, webPage } from "@/lib/seo";
 
-const glance = [
-  { label: "Submission", value: "Abstract and extended abstract through Microsoft CMT" },
-  { label: "Review", value: "Double-blind peer review by two reviewers" },
-  { label: "Study types", value: "Empirical, conceptual, review and case studies" },
-  { label: "Conference", value: `${conf.dates}, hybrid` },
-];
-
-// One icon per track, in the same order as `themes`
-const icons = [
-  <path key="plant" d="M12 21V11M12 11C12 6.5 8.5 4 4 4c0 4.5 3.5 7 8 7zM12 14c0-4 3-6.5 8-6.5 0 4-3 6.5-8 6.5z" />,
-  <path key="chart" d="M4 4v16h16M8 15l3.5-3.5 3 3L20 9" />,
-  <path key="fish" d="M3 12c3.5-4 7.5-5.5 11-5.5 3 0 5.5 2 7 5.5-1.5 3.5-4 5.5-7 5.5-3.5 0-7.5-1.5-11-5.5zM3 12L1.5 8.5M3 12l-1.5 3.5M16.5 11h.01" />,
-];
+const opens = dates[0];
 
 const seo = {
   path: "/call-for-papers/",
-  title: "Call for Papers",
-  description: "Submit your research to AgInsight 2024. Call for papers on agriculture, agri-environment, agribusiness, agricultural economics, livestock and aquaculture.",
-  keywords: ["AgInsight call for papers", "agriculture conference call for papers 2024", "agricultural sciences abstract submission", "agribusiness research", "livestock and aquaculture research"],
+  title: "Call for Papers 2027",
+  description: "AgInsight 2027 call for papers: submit extended abstracts from 5 October to 15 November 2026 across five tracks, from agri-environment to One Health.",
+  keywords: ["AgInsight 2027 call for papers", "call for papers agriculture 2027", "extended abstract submission", "agricultural sciences conference Sri Lanka", "One Health and food safety"],
+  image: { url: "/photos/drone-over-crop-field-1600.webp", width: 1600, height: 873, alt: "An agricultural drone flying low over a green crop field" },
 };
 export const metadata = pageMeta(seo);
-const schema = graph(webPage(seo), breadcrumbs([{ name: "Call for Papers", path: seo.path }]), event);
+const schema = graph(
+  webPage({ ...seo, image: seo.image.url }),
+  breadcrumbs([{ name: "Call for Papers", path: seo.path }]),
+  event,
+);
 
 export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Call for papers" lead={conf.theme} />
+      <PageTitle title="Call for Papers" lead={`${conf.name}: ${conf.theme}`} />
 
-      {/* Perspective */}
+      {/* Theme */}
       <section className="mx-auto grid max-w-6xl items-start gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <Heading title="Conference perspective" />
+          <Heading title="The theme" lead={conf.theme} />
           <div className="mt-8 flex flex-col gap-5 text-lg leading-relaxed text-ink/85">
-            <p>
-              The conference brings together scholars, practitioners and policy makers from around the world to present and
-              share original research on agriculture and agri-environment, agribusiness and agricultural economics, and livestock
-              and aquaculture, in developed, developing and emerging economies.
-            </p>
-            <p>
-              Agriculture shapes the livelihoods and wellbeing of a wide range of people, the growth of new and established
-              organisations, and the economic vitality of whole economies. Original papers are invited on the themes below; the
-              list shows the conference scope and is not exhaustive.
-            </p>
+            <p>{themeRationale}</p>
+            <p>{about[0]}</p>
           </div>
         </div>
-
         <aside className="rounded-3xl bg-leaf p-8 sm:p-10 lg:col-span-5">
           <h3 className="font-slab text-2xl font-semibold text-field">At a glance</h3>
           <dl className="mt-6 divide-y divide-primary/10">
-            {glance.map((g) => (
-              <div key={g.label} className="py-4 first:pt-0 last:pb-0">
-                <dt className="text-sm font-medium text-primary">{g.label}</dt>
-                <dd className="mt-1 leading-relaxed">{g.value}</dd>
+            {[
+              ["Submit", `Extended abstracts, ${fmtDate(opens.date)} to ${fmtDate(deadline.date)}`],
+              ["Conference", `${conf.dates}, in person`],
+              ["Venue", "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka"],
+              ["Forums", "A professional forum and a student forum in every track"],
+            ].map(([k, v]) => (
+              <div key={k} className="py-4 first:pt-0 last:pb-0">
+                <dt className="text-sm font-medium text-primary">{k}</dt>
+                <dd className="mt-1 leading-relaxed">{v}</dd>
               </div>
             ))}
           </dl>
         </aside>
       </section>
 
-      {/* Sub-themes */}
-      <section id="themes" className="scroll-mt-18 bg-leaf">
-        <div className="mx-auto max-w-6xl px-4 py-24">
-          <Heading title="Sub-themes" lead="Submit under the track closest to your work. Related topics not listed here are also welcome." />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {themes.map((t, i) => (
-              // subgrid: headers share one row height, so the three lists start level
-              <article key={t.title} className="grid rounded-3xl border border-black/5 bg-white p-8 shadow-sm lg:row-span-2 lg:grid-rows-subgrid lg:gap-0">
-                <div className="flex items-start gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-white" aria-hidden>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      {icons[i]}
-                    </svg>
-                  </span>
-                  <div>
-                    <h3 className="font-slab text-xl font-semibold leading-snug">{t.title}</h3>
-                    <p className="mt-1 text-sm text-muted">{t.topics.length} topics</p>
-                  </div>
-                </div>
-                <ul className="mt-6 divide-y divide-black/5 border-t border-black/5">
-                  {t.topics.map((x) => (
-                    <li key={x} className="flex gap-3 py-2.5 text-[15px] leading-snug">
-                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" aria-hidden />
-                      {x}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+      {/* Focus areas */}
+      <section className="mx-auto max-w-6xl px-4 pb-24">
+        <div className="grid items-center gap-12 overflow-hidden rounded-3xl bg-field text-white lg:grid-cols-2">
+          <Photo
+            name="vertical-farm-lettuce"
+            alt="Rows of fresh green lettuce growing under lights in an indoor vertical farm"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="h-full min-h-72 w-full object-cover"
+          />
+          <div className="p-8 sm:p-12 lg:pl-0">
+            <h2 className="font-slab text-3xl font-semibold tracking-tight">Focus areas</h2>
+            <p className="mt-3 text-white/75">The theme highlights the growing need for:</p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {focusAreas.map((f) => (
+                <li key={f} className="flex gap-3 leading-snug">
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-secondary" aria-hidden />
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <CtaCard
-        title="Ready to submit?"
-        text="Check the formatting rules first, then send your abstract through CMT."
-        secondary={{ href: "/paper-submission-guidelines/", label: "Read the guidelines" }}
-      />
+      {/* Tracks */}
+      <section id="tracks" className="scroll-mt-18 bg-leaf">
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <Heading title="Session tracks" lead="Submit under the track closest to your work. Every track has a professional forum and a student forum." />
+          <div className="mt-12">
+            <TrackGrid />
+          </div>
+        </div>
+      </section>
 
+      {/* Publication + how to submit */}
+      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-24 lg:grid-cols-2">
+        <article className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm sm:p-10">
+          <h2 className="font-slab text-3xl font-semibold tracking-tight text-field">Publication</h2>
+          <ul className="mt-6 flex flex-col gap-4">
+            {publication.map((p) => (
+              <li key={p} className="flex gap-4 text-lg leading-relaxed">
+                <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white" aria-hidden>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12l5 5L20 7" /></svg>
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <Link href="/journals/" className="mt-8 inline-block font-medium text-primary underline underline-offset-4">
+            About the Journal of Agricultural Sciences – Sri Lanka
+          </Link>
+        </article>
+
+        <article id="how-to-submit" className="scroll-mt-24 rounded-3xl bg-field p-8 text-white sm:p-10">
+          <h2 className="font-slab text-3xl font-semibold tracking-tight">How to submit</h2>
+          <ol className="mt-6 flex flex-col gap-4">
+            {[
+              "Check the formatting rules in the submission guidelines.",
+              `Submit your extended abstract online between ${fmtDate(opens.date)} and ${fmtDate(deadline.date)}.`,
+              `Watch for the acceptance notice on ${fmtDate(dates.find((d) => d.stage === "Review")!.date)}.`,
+            ].map((s, i) => (
+              <li key={s} className="flex gap-4 leading-relaxed text-white/90">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary font-semibold">{i + 1}</span>
+                <span className="pt-1">{s}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 text-sm text-white/70">
+            {conf.submitUrl ? "Submissions are open." : `The submission link will appear here when submissions open on ${fmtDate(opens.date)}.`}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {conf.submitUrl && <Button href={conf.submitUrl}>Submit your abstract</Button>}
+            <Button href="/paper-submission-guidelines/" variant={conf.submitUrl ? "ghost" : "solid"}>Submission guidelines</Button>
+            <Button href="/important-dates/" variant="ghost">All important dates</Button>
+          </div>
+        </article>
+      </section>
+
+      <Venue />
+
+      <section className="mx-auto max-w-6xl px-4 pb-24 text-sm text-muted">
+        Looking for the previous edition? See the <Link href="/call-for-papers-2024/" className="text-primary underline underline-offset-4">AgInsight 2024 call for papers</Link>.
+      </section>
     </>
   );
 }

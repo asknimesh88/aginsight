@@ -1,8 +1,8 @@
 import { PageTitle, CtaCard } from "@/components/ui";
 import KeynoteProfile from "@/components/profile";
 import JsonLd from "@/components/json-ld";
-import { conf, people } from "@/lib/site";
-import { breadcrumbs, event, graph, pageMeta, personSchema, webPage } from "@/lib/seo";
+import { conf2024 as conf, people } from "@/lib/site";
+import { breadcrumbs, event2024 as event, graph, pageMeta, personSchema, webPage, EVENT_2024_ID } from "@/lib/seo";
 
 const p = people.find((x) => x.role === "Keynote speaker")!;
 
@@ -15,7 +15,7 @@ const seo = {
 };
 export const metadata = pageMeta(seo);
 const schema = graph(
-  webPage({ ...seo, type: "ProfilePage", image: p.photo, extra: { mainEntity: personSchema(p, seo.path) } }),
+  webPage({ ...seo, type: "ProfilePage", image: p.photo, about: EVENT_2024_ID, extra: { mainEntity: personSchema(p, seo.path) } }),
   breadcrumbs([
     { name: "Chief Guest and Keynote Speakers", path: "/chief-guest-and-keynote-speakers/" },
     { name: p.name, path: seo.path },
@@ -34,7 +34,7 @@ export default function Page() {
         note="Figures from Google Scholar, February 2024."
         link={{ href: "/chief-guest-and-keynote-speakers/", label: "See all speakers and guests" }}
       />
-      <CtaCard title={`Hear Prof. Corke at ${conf.name}`} text={`${conf.dates}, Sabaragamuwa University of Sri Lanka and online.`} secondary={{ href: "/important-dates/", label: "See the dates" }} />
+      <CtaCard title="Join us at AgInsight 2027" text="10–11 March 2027 at the Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka." secondary={{ href: "/important-dates/", label: "See the 2027 dates" }} />
     </>
   );
 }

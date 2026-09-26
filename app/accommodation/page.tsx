@@ -6,7 +6,7 @@ import { abs, breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
 const seo = {
   path: "/accommodation/",
   title: "Accommodation",
-  description: "Recommended hotels and guest houses near Sabaragamuwa University of Sri Lanka in Belihuloya for AgInsight 2024 delegates, with booking links.",
+  description: "Recommended hotels and guest houses near Sabaragamuwa University of Sri Lanka in Belihuloya for AgInsight 2027 delegates, with booking links.",
   keywords: ["AgInsight accommodation", "hotels near Sabaragamuwa University", "Belihuloya hotels", "where to stay Belihuloya"],
   image: { url: "/hotels/sennya.jpg", alt: "Sennya Resorts" },
 };
@@ -16,7 +16,7 @@ const schema = graph(
   breadcrumbs([{ name: "Accommodation", path: seo.path }]),
   {
     "@type": "ItemList",
-    name: "Recommended accommodation for AgInsight 2024",
+    name: "Recommended accommodation for AgInsight 2027",
     itemListElement: hotels.map((h, i) => ({
       "@type": "ListItem",
       position: i + 1,

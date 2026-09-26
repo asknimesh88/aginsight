@@ -1,5 +1,5 @@
 import { PageTitle, Button, Heading, CtaCard } from "@/components/ui";
-import { conf, docs } from "@/lib/site";
+import { conf, docs, submitHref } from "@/lib/site";
 import JsonLd from "@/components/json-ld";
 import { breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
 
@@ -13,7 +13,7 @@ const steps = [
 const seo = {
   path: "/paper-submission-guidelines/",
   title: "Paper Submission Guidelines",
-  description: "How to format and submit your AgInsight 2024 abstract: the B5 template, title and keyword rules, double-blind review and submission through Microsoft CMT.",
+  description: "How to format and submit your AgInsight abstract: the B5 template, title and keyword rules, double-blind review and submission through Microsoft CMT.",
   keywords: ["AgInsight paper submission guidelines", "abstract format", "abstract template", "Microsoft CMT submission", "Journal of Agricultural Sciences Sri Lanka"],
 };
 export const metadata = pageMeta(seo);
@@ -144,7 +144,7 @@ export default function Page() {
               ))}
             </ul>
             <div className="mt-6 flex flex-col">
-              <Button href={conf.submitUrl}>Submit through CMT</Button>
+              <Button href={submitHref}>{conf.submitUrl ? "Submit through CMT" : "Submission opens 5 October 2026"}</Button>
             </div>
           </div>
         </aside>

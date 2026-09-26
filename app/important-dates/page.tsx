@@ -1,54 +1,53 @@
+import Link from "next/link";
 import { PageTitle, Button, Heading, Venue } from "@/components/ui";
-import { conf, dates, deadline, docs, fmtDate } from "@/lib/site";
+import { CalendarTile, FeesTable, Programme, daysBetween } from "@/components/edition";
+import NextMilestone from "@/components/next-milestone";
 import JsonLd from "@/components/json-ld";
+import { conf, dates, deadline, fmtDate, submitHref } from "@/lib/site";
 import { breadcrumbs, event, graph, pageMeta, webPage } from "@/lib/seo";
-
-const d = (s: string) => new Date(s + "T00:00:00");
-const daysBetween = (a: string, b: string) => Math.round((d(b).getTime() - d(a).getTime()) / 86_400_000);
-
-function CalendarTile({ date, highlight }: { date: string; highlight?: boolean }) {
-  const x = d(date);
-  return (
-    <div
-      className={`relative z-10 w-16 shrink-0 self-start overflow-hidden rounded-2xl border bg-white text-center shadow-sm sm:w-20 ${highlight ? "border-primary ring-4 ring-primary/15" : "border-black/10"}`}
-    >
-      <div className={`py-1 text-xs font-medium text-white ${highlight ? "bg-field" : "bg-primary"}`}>
-        {x.toLocaleDateString("en-US", { month: "short" })}
-      </div>
-      <div className="pb-1.5 pt-1 font-slab text-2xl font-semibold leading-none text-field sm:text-3xl">{x.getDate()}</div>
-      <div className="pb-1.5 text-[11px] text-muted">{x.getFullYear()}</div>
-    </div>
-  );
-}
 
 const seo = {
   path: "/important-dates/",
-  title: "Important Dates",
-  description: `Key AgInsight 2024 deadlines: abstracts by ${fmtDate(deadline.date)}, camera-ready by ${fmtDate(dates[3].date)} and the conference on ${conf.dates}.`,
-  keywords: ["AgInsight important dates", "AgInsight 2024 abstract deadline", "agriculture conference deadlines", "AgInsight 2024 registration"],
+  title: "Important Dates 2027",
+  description: `AgInsight 2027 dates: submit extended abstracts ${fmtDate(dates[0].date)} to ${fmtDate(deadline.date)}. Early bird registration ends ${fmtDate("2027-01-22")}.`,
+  keywords: ["AgInsight 2027 important dates", "AgInsight 2027 deadline", "AgInsight 2027 registration fees", "agriculture conference 2027 dates", "AgInsight programme"],
 };
 export const metadata = pageMeta(seo);
-const schema = graph(webPage(seo), breadcrumbs([{ name: "Important Dates", path: seo.path }]), event);
+const schema = graph(
+  webPage(seo),
+  breadcrumbs([{ name: "Important Dates", path: seo.path }]),
+  event,
+  {
+    "@type": "ItemList",
+    name: "AgInsight 2027 milestones",
+    itemListElement: dates.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: `${d.label}: ${fmtDate(d.date)}` })),
+  },
+);
+
+const BUILD_TIME = Date.now();
 
 export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
       <PageTitle
-        title="Important dates"
-        lead={`From the call for abstracts on ${fmtDate(dates[0].date)} to the conference on ${conf.dates}.`}
+        title="Important Dates"
+        lead={`${conf.name}: from abstract submission on ${fmtDate(dates[0].date)} to the conference on ${conf.dates}.`}
       />
 
       <section className="mx-auto grid max-w-6xl gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">
         {/* Sticky summary */}
         <aside className="lg:col-span-4">
           <div className="rounded-3xl bg-field p-8 text-white lg:sticky lg:top-28">
-            <p className="text-sm font-medium text-secondary">Abstract deadline</p>
+            <p className="text-sm font-medium text-secondary">Submission deadline</p>
             <p className="mt-2 font-slab text-4xl font-semibold leading-tight">{fmtDate(deadline.date)}</p>
-            <p className="mt-3 leading-relaxed text-white/75">{deadline.note}</p>
+            <p className="mt-3 leading-relaxed text-white/75">Extended abstracts open on {fmtDate(dates[0].date)}.</p>
+            <div className="mt-6">
+              <NextMilestone items={dates} buildTime={BUILD_TIME} />
+            </div>
             <div className="mt-8 flex flex-col gap-3">
-              <Button href={conf.submitUrl}>Submit your abstract</Button>
-              <Button href={docs.template} variant="ghost">Download the template</Button>
+              <Button href={submitHref}>{conf.submitUrl ? "Submit your abstract" : "Read the call for papers"}</Button>
+              <Button href="#fees" variant="ghost">Registration fees</Button>
             </div>
           </div>
         </aside>
@@ -78,7 +77,32 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Fees */}
+      <section id="fees" className="scroll-mt-18 bg-leaf">
+        <div className="mx-auto max-w-6xl px-4 py-24">
+          <Heading title="Registration fees" lead="Early bird rates apply until 22 January 2027; regular rates until 12 February 2027." />
+          <div className="mt-12">
+            <FeesTable />
+          </div>
+          <p className="mt-4 text-sm text-muted">
+            See the <Link href="/payments/" className="text-primary underline underline-offset-4">payments page</Link> for bank and online payment details.
+          </p>
+        </div>
+      </section>
+
+      {/* Programme */}
+      <section className="mx-auto max-w-6xl px-4 py-24">
+        <Heading title="Programme" lead="Wednesday 10 and Thursday 11 March 2027." />
+        <div className="mt-12">
+          <Programme />
+        </div>
+      </section>
+
       <Venue />
+
+      <section className="mx-auto max-w-6xl px-4 pb-24 text-sm text-muted">
+        Looking for the previous edition? See the <Link href="/important-dates-2024/" className="text-primary underline underline-offset-4">AgInsight 2024 important dates</Link>.
+      </section>
     </>
   );
 }

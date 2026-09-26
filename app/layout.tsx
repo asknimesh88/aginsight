@@ -12,7 +12,7 @@ const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["lati
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${conf.name} | Agricultural Sciences Conference Sri Lanka`, template: `%s | ${conf.name}` },
+  title: { default: `${conf.name} | Agricultural Sciences Conference Sri Lanka`, template: "%s | AgInsight" },
   description: `${conf.edition}, ${conf.dates}, Sabaragamuwa University of Sri Lanka. ${conf.theme}.`,
   applicationName: conf.name,
   authors: [{ name: "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka", url: "https://www.sab.ac.lk/agri/" }],

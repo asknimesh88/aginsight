@@ -1,7 +1,7 @@
 import { PageTitle, Button, Heading } from "@/components/ui";
 import JsonLd from "@/components/json-ld";
-import { conf, docs } from "@/lib/site";
-import { breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
+import { conf2024 as conf, docs } from "@/lib/site";
+import { breadcrumbs, graph, pageMeta, webPage, EVENT_2024_ID } from "@/lib/seo";
 
 const POSTER = "/docs/future-professionals-2024.jpg";
 
@@ -13,7 +13,7 @@ const seo = {
   image: { url: POSTER, alt: "AgInsight 2024 Future Professionals call for undergraduates" },
 };
 export const metadata = pageMeta(seo);
-const schema = graph(webPage({ ...seo, image: POSTER }), breadcrumbs([{ name: "Future Professionals", path: seo.path }]));
+const schema = graph(webPage({ ...seo, image: POSTER, about: EVENT_2024_ID }), breadcrumbs([{ name: "Future Professionals", path: seo.path }]));
 
 const benefits = [
   { title: "Leadership experience", text: "Take the lead in organising a major international event." },

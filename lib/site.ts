@@ -1,6 +1,119 @@
 // All conference content lives here. For a new edition, edit this file.
 
-export const conf = {
+type Conf = {
+  name: string; edition: string; theme: string; dates: string; format: string; venue: string; email: string;
+  submitUrl?: string; registerUrl?: string; mapUrl: string;
+};
+
+// Current edition (from "AGINSIGHT SCHEDULE FOR WEB.pdf")
+export const conf: Conf = {
+  name: "AgInsight 2027",
+  edition: "6th International Conference of Agricultural Sciences",
+  theme: "Innovating Together for Resilient Agriculture and Community Well-Being",
+  dates: "10–11 March 2027",
+  format: "Physical conference",
+  venue: "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya",
+  email: "aginsight@agri.sab.ac.lk",
+  // submitUrl / registerUrl: add when the CMT site and registration form open
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=Sabaragamuwa+University+of+Sri+Lanka",
+};
+
+// Where "Submit" buttons go until the CMT link exists
+export const submitHref = conf.submitUrl ?? "/call-for-papers/#how-to-submit";
+
+export const about = [
+  "The Faculty of Agricultural Sciences of Sabaragamuwa University of Sri Lanka has organised a series of international conferences under the AgInsight banner, creating a strong platform for academics, researchers, industry experts, policymakers, development practitioners, students and community stakeholders to exchange knowledge and build collaborations.",
+  "Earlier editions have promoted interdisciplinary research dissemination, industry–academia partnerships, innovation sharing, and regional and international networking. AgInsight 2027 is the faculty’s 6th International Conference of Agricultural Sciences.",
+];
+
+export const themeRationale =
+  "The theme emphasises collaborative innovation and interdisciplinary partnerships in transforming agricultural systems to become more resilient, adaptive, inclusive and community-centred. Sustainable agricultural development and food security can only be achieved through the collective efforts of scientists, farmers, industries, policymakers, entrepreneurs, students and local communities.";
+
+export const focusAreas = [
+  "Climate-resilient agricultural practices",
+  "Smart and digital agriculture",
+  "Sustainable livestock and crop production systems",
+  "Food and nutrition security",
+  "Value addition and agribusiness development",
+  "Community empowerment and rural livelihood improvement",
+  "One Health and environmental sustainability",
+  "Knowledge-sharing platforms that bridge research and practice",
+];
+
+export const tracks = [
+  { title: "Agriculture and Agri-environment", photo: "aerial-tractor-ploughing", alt: "Aerial view of a tractor ploughing rows in a green field" },
+  { title: "Agribusiness and Agricultural Economics", photo: "tomatoes-market", alt: "Fresh tomatoes on the vine piled high at a market" },
+  { title: "Community Development and Nutrition Security", photo: "farmer-walking-cattle", alt: "A woman farmer walking her cattle along a village road" },
+  { title: "Livestock and Aquaculture", photo: "aerial-fishing-boat", alt: "Aerial view of a fishing boat hauling a net across green water" },
+  { title: "One Health and Food Safety", photo: "chick-in-hand", alt: "A farmer gently holding a young chick in an open hand" },
+];
+
+export const publication = [
+  "Extended abstracts will be published online.",
+  "Recommended full papers will be published in a special issue of the Journal of Agricultural Sciences – Sri Lanka.",
+];
+
+// Stage names group the timeline; labels are shown to visitors
+export const dates = [
+  { date: "2026-10-05", label: "Extended abstract submission opens", stage: "Submission", note: "Start submitting your extended abstract." },
+  { date: "2026-11-15", label: "Extended abstract submission deadline", stage: "Submission", note: "Last day to submit your extended abstract." },
+  { date: "2027-01-15", label: "Notification of acceptance", stage: "Review", note: "Authors are told whether their abstract has been accepted." },
+  { date: "2027-01-22", label: "Early bird registration closes", stage: "Registration", note: "Last day to register at the early bird rate." },
+  { date: "2027-01-25", label: "Final abstract submission", stage: "Review", note: "Submit the final version of your accepted abstract." },
+  { date: "2027-02-12", label: "Regular registration closes", stage: "Registration", note: "Last day to register at the regular rate." },
+  { date: "2027-03-10", label: "Conference day 1", stage: "Conference", note: "Registration, inauguration, keynote speech, plenary sessions and conference dinner." },
+  { date: "2027-03-11", label: "Conference day 2", stage: "Conference", note: "Technical sessions across all five tracks and the closing ceremony." },
+];
+
+export const deadline = dates.find((d) => d.label === "Extended abstract submission deadline")!;
+
+export const fees = {
+  columns: ["Early bird", "Regular"],
+  closes: ["2027-01-22", "2027-02-12"],
+  rows: [
+    { who: "Local students", currency: "LKR", amounts: [1500, 2000] },
+    { who: "Local participants", currency: "LKR", amounts: [4500, 5500] },
+    { who: "International participants", currency: "USD", amounts: [70, 100] },
+    { who: "International students", currency: "USD", amounts: [50, 75] },
+  ],
+};
+
+export const programme = [
+  {
+    date: "2027-03-10",
+    items: [
+      { time: "2.00–3.00 pm", title: "Registration" },
+      { time: "3.00–4.15 pm", title: "Inauguration session and keynote speech" },
+      { time: "4.15–4.30 pm", title: "Refreshments", pause: true },
+      { time: "4.30–6.30 pm", title: "Plenary sessions", detail: "Departments of Agribusiness Management, Export Agriculture and Livestock Production" },
+      { time: "7.30 pm onwards", title: "Conference dinner" },
+    ],
+  },
+  {
+    date: "2027-03-11",
+    items: [
+      { time: "8.30–9.00 am", title: "Registration" },
+      { time: "9.00–10.30 am", title: "Session 1" },
+      { time: "10.30–11.00 am", title: "Refreshments", pause: true },
+      { time: "11.00 am–12.30 pm", title: "Session 2" },
+      { time: "12.30–1.30 pm", title: "Lunch", pause: true },
+      { time: "1.30–4.00 pm", title: "Session 3" },
+      { time: "4.15–4.30 pm", title: "Refreshments", pause: true },
+      { time: "4.45–5.45 pm", title: "Closing ceremony" },
+    ],
+  },
+];
+
+// Phone numbers and emails to be added when the committee confirms them
+export const committee: { name: string; role: string; phone?: string; email?: string }[] = [
+  { name: "Prof. T. Sanjeewa Prasad Jayaweera", role: "Chairperson" },
+  { name: "Dr. R. N. N. Perera", role: "Secretary" },
+  { name: "Dr. P. Shivashankar", role: "Coordinator" },
+];
+
+// ---------------- AgInsight 2024 (archive pages) ----------------
+
+export const conf2024: Conf = {
   name: "AgInsight 2024",
   edition: "5th International Conference of Agricultural Sciences",
   theme: "Agricultural research to address future challenges of climate change and food security",
@@ -27,33 +140,43 @@ export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 export const nav: NavItem[] = [
   {
-    label: "Conference",
+    label: "AgInsight 2027",
     href: "/call-for-papers/",
     children: [
       { label: "Call for papers", href: "/call-for-papers/" },
       { label: "Important dates", href: "/important-dates/" },
       { label: "Submission guidelines", href: "/paper-submission-guidelines/" },
-      { label: "Speakers", href: "/chief-guest-and-keynote-speakers/" },
+      { label: "Payments", href: "/payments/" },
+      { label: "Journals", href: "/journals/" },
+    ],
+  },
+  {
+    label: "Past editions",
+    href: "/aginsight-2024/",
+    children: [
+      { label: "AgInsight 2024", href: "/aginsight-2024/" },
+      { label: "2024 speakers", href: "/chief-guest-and-keynote-speakers/" },
+      { label: "2024 call for papers", href: "/call-for-papers-2024/" },
+      { label: "2024 important dates", href: "/important-dates-2024/" },
+      { label: "2024 contacts", href: "/contact-us-2024/" },
       { label: "Previous proceedings", href: "/previous-proceedings/" },
       { label: "Gallery", href: "/gallery/" },
     ],
   },
   { label: "Accommodation", href: "/accommodation/" },
-  { label: "Journals", href: "/journals/" },
-  { label: "Payments", href: "/payments/" },
   { label: "Contact", href: "/contact-us/" },
 ];
 
-export const intro =
+export const intro2024 =
   "The Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, invites academics, practitioners, scholars, researchers and policy makers to present their papers at AgInsight 2024. Papers are submitted through CMT and double-blind peer reviewed by two reviewers. Undergraduate students are warmly encouraged to present findings from ongoing research. Papers may address the main theme or any of the sub-themes below; unlisted but related topics are also welcome.";
 
-export const whyAttend = [
+export const whyAttend2024 = [
   "Share your research findings and scholarly knowledge at an international academic forum",
   "Broaden your international research network",
   "Selected high-quality papers are considered for publication in the Journal of Agricultural Sciences – Sri Lanka (ESCI/WoS, Scopus, DOAJ, EBSCO)",
 ];
 
-export const themes: { title: string; topics: string[] }[] = [
+export const themes2024: { title: string; topics: string[] }[] = [
   {
     title: "Agriculture and agri-environment",
     topics: [
@@ -90,7 +213,7 @@ export const themes: { title: string; topics: string[] }[] = [
   },
 ];
 
-export const dates = [
+export const dates2024 = [
   { date: "2024-04-05", label: "Call for abstracts opens", stage: "Submission", note: "Abstract submissions open on Microsoft CMT." },
   { date: "2024-05-05", label: "Abstract submission deadline", stage: "Submission", note: "Last day to submit your abstract and extended abstract through CMT." },
   { date: "2024-07-25", label: "Notification of acceptance", stage: "Review", note: "Authors receive the double-blind review outcome." },
@@ -100,17 +223,21 @@ export const dates = [
   { date: "2024-09-12", label: "Conference day 2", stage: "Conference", note: "Hybrid sessions at Sabaragamuwa University of Sri Lanka and online." },
 ];
 
-export const deadline = dates.find((d) => d.label === "Abstract submission deadline")!;
+export const deadline2024 = dates2024.find((d) => d.label === "Abstract submission deadline")!;
 
 // Google Calendar all-day event spanning the conference days (end date is exclusive)
-const conferenceDays = dates.filter((d) => d.stage === "Conference").map((d) => new Date(d.date + "T00:00:00"));
 const ymd = (x: Date) => `${x.getFullYear()}${String(x.getMonth() + 1).padStart(2, "0")}${String(x.getDate()).padStart(2, "0")}`;
-export const calendarUrl =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  `&text=${encodeURIComponent(conf.name)}` +
-  `&dates=${ymd(conferenceDays[0])}/${ymd(new Date(conferenceDays.at(-1)!.getTime() + 86_400_000))}` +
-  `&location=${encodeURIComponent(conf.venue)}` +
-  `&details=${encodeURIComponent(`${conf.edition}: ${conf.theme}`)}`;
+export function calendarUrlFor(c: Conf, ds: { date: string; stage: string }[]) {
+  const days = ds.filter((d) => d.stage === "Conference").map((d) => new Date(d.date + "T00:00:00"));
+  return (
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    `&text=${encodeURIComponent(c.name)}` +
+    `&dates=${ymd(days[0])}/${ymd(new Date(days.at(-1)!.getTime() + 86_400_000))}` +
+    `&location=${encodeURIComponent(c.venue)}` +
+    `&details=${encodeURIComponent(`${c.edition}: ${c.theme}`)}`
+  );
+}
+export const calendarUrl = calendarUrlFor(conf, dates);
 
 export const fmtDate = (d: string) =>
   new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
@@ -125,6 +252,7 @@ export type Person = {
   highlights?: { value: string; label: string }[];
 };
 
+// AgInsight 2024 speakers and guests
 export const people: Person[] = [
   {
     role: "Keynote speaker",
@@ -191,20 +319,20 @@ export const pastKeynotes: (Person & { edition: string; path: string })[] = [
   },
 ];
 
-export const events = [
+export const events2024 = [
   { type: "Plenary session", title: "The role of nutrition in sustainable livestock production" },
   { type: "Plenary session", title: "Resilience in food systems" },
   { type: "Teaching cases", title: "Food and agribusiness" },
 ];
 
-export const sponsors = [
+export const sponsors2024 = [
   { name: "Sabaragamuwa University of Sri Lanka", logo: "/sponsors/logo-susl.png" },
   { name: "Analytical Instruments", logo: "/sponsors/analytical-instruments.png" },
   { name: "Versatile", logo: "/sponsors/versatile-1.png" },
   { name: "Hemsons", logo: "/sponsors/hemsons.png" },
 ];
 
-export const committee = [
+export const committee2024: { name: string; role: string; phone?: string }[] = [
   { name: "Prof. Kapila Dissanayake", role: "Conference Chair" },
   { name: "Dr. R. K. C. Jeewanthi", role: "Conference Coordinator" },
   { name: "Mr. Nimesh Madushanka", role: "Conference Secretary", phone: "+94 71 626 0870" },
