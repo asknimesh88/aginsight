@@ -3,6 +3,7 @@
 type Conf = {
   name: string; edition: string; theme: string; dates: string; format: string; venue: string; email: string;
   submitUrl?: string; registerUrl?: string; mapUrl: string;
+  startsAt?: string; endsAt?: string; // ISO with Sri Lanka offset, for the countdown
 };
 
 // Current edition (from "AGINSIGHT SCHEDULE FOR WEB.pdf")
@@ -15,6 +16,8 @@ export const conf: Conf = {
   venue: "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya",
   email: "aginsight@agri.sab.ac.lk",
   // submitUrl / registerUrl: add when the CMT site and registration form open
+  startsAt: "2027-03-10T14:00:00+05:30", // day 1 registration opens (programme)
+  endsAt: "2027-03-11T17:45:00+05:30", // closing ceremony ends
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sabaragamuwa+University+of+Sri+Lanka",
 };
 

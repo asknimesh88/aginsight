@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button, Heading, Photo, Venue } from "@/components/ui";
 import { FeesTable, Programme, TrackGrid } from "@/components/edition";
 import NextMilestone from "@/components/next-milestone";
+import Countdown from "@/components/countdown";
 import JsonLd from "@/components/json-ld";
 import { about, conf, dates, focusAreas, fmtDate, publication, submitHref, themeRationale, tracks } from "@/lib/site";
 import { event, graph, pageMeta, webPage } from "@/lib/seo";
@@ -65,7 +66,8 @@ export default function Home() {
 
       {/* Facts bar, overlapping the hero */}
       <section className="relative z-10 mx-auto -mt-24 max-w-6xl px-4">
-        <dl className="grid overflow-hidden rounded-3xl bg-white shadow-xl shadow-field/10 ring-1 ring-black/5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="overflow-hidden rounded-3xl bg-white shadow-xl shadow-field/10 ring-1 ring-black/5">
+        <dl className="grid sm:grid-cols-2 lg:grid-cols-4">
           {facts.map((f, i) => (
             <div key={f.label} className={`p-6 sm:p-8 ${i > 0 ? "border-t border-black/5 sm:border-t-0 lg:border-l" : ""} ${i === 2 ? "sm:border-t lg:border-t-0" : ""} ${i === 1 || i === 3 ? "sm:border-l" : ""}`}>
               <dt className="text-sm font-medium text-primary">{f.label}</dt>
@@ -74,6 +76,8 @@ export default function Home() {
             </div>
           ))}
         </dl>
+        <Countdown startsAt={conf.startsAt!} endsAt={conf.endsAt!} label={conf.name} />
+        </div>
       </section>
 
       {/* About + theme */}
