@@ -3,8 +3,9 @@ import { Button, Heading, Photo, Venue } from "@/components/ui";
 import { FeesTable, Programme, TrackGrid } from "@/components/edition";
 import NextMilestone from "@/components/next-milestone";
 import Countdown from "@/components/countdown";
+import DatesRail from "@/components/dates-rail";
 import JsonLd from "@/components/json-ld";
-import { about, conf, dates, focusAreas, fmtDate, publication, submitHref, themeRationale, tracks } from "@/lib/site";
+import { about, conf, dates, focusAreas, publication, submitHref, themeRationale, tracks } from "@/lib/site";
 import { event, graph, pageMeta, webPage } from "@/lib/seo";
 
 const seo = {
@@ -133,14 +134,14 @@ export default function Home() {
       <section className="bg-field text-white">
         <div className="mx-auto max-w-6xl px-4 py-24">
           <Heading title="Important dates" link={{ href: "/important-dates/", label: "Full timeline" }} dark />
-          <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {keyDates.map((d) => (
-              <li key={d.date} className="border-t-2 border-secondary pt-4">
-                <time dateTime={d.date} className="font-slab text-2xl">{fmtDate(d.date)}</time>
-                <p className="mt-1 text-white/85">{d.label}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-14">
+            <DatesRail
+              stops={[
+                ...keyDates.map((d) => ({ date: d.date, label: d.label })),
+                { date: dates.find((d) => d.stage === "Conference")!.date, end: dates.at(-1)!.date, label: conf.name },
+              ]}
+            />
+          </div>
         </div>
       </section>
 

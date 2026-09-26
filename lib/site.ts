@@ -84,6 +84,7 @@ export const fees = {
 export const programme = [
   {
     date: "2027-03-10",
+    name: "Opening day",
     items: [
       { time: "2.00–3.00 pm", title: "Registration" },
       { time: "3.00–4.15 pm", title: "Inauguration session and keynote speech" },
@@ -94,6 +95,7 @@ export const programme = [
   },
   {
     date: "2027-03-11",
+    name: "Sessions and closing",
     items: [
       { time: "8.30–9.00 am", title: "Registration" },
       { time: "9.00–10.30 am", title: "Session 1" },

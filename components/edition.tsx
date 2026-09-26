@@ -67,28 +67,72 @@ export function FeesTable() {
   );
 }
 
+// Icon per agenda item, picked from its title
+const agendaIcons: [RegExp, string][] = [
+  [/registration/i, "M4 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7zM8 10h8M8 14h5"],
+  [/keynote|inauguration/i, "M12 3a3 3 0 00-3 3v5a3 3 0 006 0V6a3 3 0 00-3-3zM6 11a6 6 0 0012 0M12 17v4M8 21h8"],
+  [/plenary/i, "M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 10a4 4 0 100-8 4 4 0 000 8zM21 20v-2a4 4 0 00-3-3.9M16 2.1a4 4 0 010 7.8"],
+  [/session/i, "M3 4h18v12H3zM8 20h8M12 16v4"],
+  [/refreshments/i, "M4 8h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5V8zM17 9h1a3 3 0 010 6h-1M8 2v3M12 2v3"],
+  [/lunch|dinner/i, "M7 2v8a2 2 0 002 2v10M11 2v8a2 2 0 01-2 2M17 2c-2 1.5-3 4-3 7h3v13"],
+  [/closing/i, "M4 21V4M4 4h13l-2 4 2 4H4"],
+];
+const iconFor = (title: string) => agendaIcons.find(([re]) => re.test(title))?.[1] ?? agendaIcons[3][1];
+
 export function Programme() {
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      {programme.map((day, d) => (
-        <article key={day.date} className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm">
-          <p className="text-sm font-medium text-primary">Day {d + 1}</p>
-          <h3 className="mt-1 font-slab text-2xl font-semibold text-field">
-            {new Date(day.date + "T00:00:00").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
-          </h3>
-          <ol className="mt-6 divide-y divide-black/5 border-t border-black/5">
-            {day.items.map((it) => (
-              <li key={it.time + it.title} className={`grid grid-cols-[8.5rem_1fr] gap-4 py-3.5 ${"pause" in it && it.pause ? "text-muted" : ""}`}>
-                <time className="text-sm tabular-nums text-muted">{it.time}</time>
-                <span>
-                  <span className={"pause" in it && it.pause ? "" : "font-medium"}>{it.title}</span>
-                  {"detail" in it && it.detail && <span className="mt-1 block text-sm text-ink/70">{it.detail}</span>}
+    <div className="grid items-start gap-6 lg:grid-cols-2">
+      {programme.map((day, d) => {
+        const date = new Date(day.date + "T00:00:00");
+        return (
+          <article key={day.date} className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm">
+            <header className="flex items-center gap-5 bg-field px-8 py-6 text-white">
+              <span className="font-slab text-6xl font-bold leading-none text-secondary">{date.getDate()}</span>
+              <span className="flex-1">
+                <span className="block font-slab text-2xl font-semibold">{day.name}</span>
+                <span className="mt-1 block text-sm text-white/70">
+                  {date.toLocaleDateString("en-GB", { weekday: "long" })}, {date.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
                 </span>
-              </li>
-            ))}
-          </ol>
-        </article>
-      ))}
+              </span>
+              <span className="self-start rounded-full bg-white/10 px-3 py-1 text-sm ring-1 ring-white/20">Day {d + 1}</span>
+            </header>
+
+            <ol className="relative px-6 py-6 sm:px-8">
+              <span aria-hidden className="absolute bottom-10 left-[calc(1.5rem+1.25rem)] top-10 w-px bg-black/10 sm:left-[calc(2rem+1.25rem)]" />
+              {day.items.map((it) => {
+                const pause = "pause" in it && it.pause;
+                const detail = "detail" in it ? it.detail : undefined;
+                return (
+                  <li key={it.time + it.title} className={`relative flex gap-4 ${pause ? "py-2" : "py-2.5"}`}>
+                    <span
+                      aria-hidden
+                      className={`relative z-10 flex shrink-0 items-center justify-center rounded-full ${
+                        pause ? "mx-1.5 h-7 w-7 bg-white text-muted ring-1 ring-black/10" : "h-10 w-10 bg-primary text-white"
+                      }`}
+                    >
+                      <svg width={pause ? 14 : 18} height={pause ? 14 : 18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d={iconFor(it.title)} />
+                      </svg>
+                    </span>
+                    {pause ? (
+                      <p className="flex flex-1 flex-wrap items-baseline justify-between gap-x-4 pt-1 text-sm text-muted">
+                        <span>{it.title}</span>
+                        <time className="tabular-nums">{it.time}</time>
+                      </p>
+                    ) : (
+                      <div className="flex-1 rounded-2xl bg-leaf px-5 py-3">
+                        <time className="text-sm font-medium tabular-nums text-primary">{it.time}</time>
+                        <p className="font-semibold text-ink">{it.title}</p>
+                        {detail && <p className="mt-1 text-sm leading-relaxed text-ink/70">{detail}</p>}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </article>
+        );
+      })}
     </div>
   );
 }
