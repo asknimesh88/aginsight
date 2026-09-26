@@ -2,6 +2,14 @@
 import { Photo } from "@/components/ui";
 import { fees, fmtDate, programme, tracks } from "@/lib/site";
 
+// Phone cards: small currency code, big number, never wraps
+const Price = ({ n, currency, className = "" }: { n: number; currency: string; className?: string }) => (
+  <span className={`whitespace-nowrap ${className}`}>
+    <span className="mr-1 text-sm font-medium">{currency}</span>
+    {n.toLocaleString("en-US")}
+  </span>
+);
+
 const money = (n: number, currency: string) => (currency === "USD" ? `USD ${n}` : `LKR ${n.toLocaleString("en-US")}`);
 
 // Five tracks as a photo mosaic: two wide cards on top, three below
@@ -33,38 +41,79 @@ export function TrackGrid({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" 
   );
 }
 
+const saving = (early: number, regular: number) => Math.round(((regular - early) / regular) * 100);
+const maxSaving = Math.max(...fees.rows.map((r) => saving(r.amounts[0], r.amounts[1])));
+
+// Early bird is column 0 and gets the highlight. Table on tablet and up; stacked cards on phones (no sideways scrolling).
 export function FeesTable() {
+  const [early, regular] = fees.columns;
+  const badge = (onGreen: boolean) => (
+    <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${onGreen ? "bg-white text-primary" : "bg-secondary text-white"}`}>
+      Save up to {maxSaving}%
+    </span>
+  );
+
   return (
-    <div className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[520px] text-left">
-          <caption className="sr-only">AgInsight 2027 registration fees</caption>
-          <thead className="bg-leaf">
+    <>
+      {/* Tablet and desktop */}
+      <div className="hidden overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm sm:block">
+        <table className="w-full text-left">
+          <caption className="sr-only">AgInsight 2027 registration fees; early bird rates are lower</caption>
+          <thead>
             <tr>
-              <th scope="col" className="px-6 py-5 font-slab text-lg font-semibold text-field">Participant</th>
-              {fees.columns.map((c, i) => (
-                <th key={c} scope="col" className="px-6 py-5 text-right">
-                  <span className="block font-slab text-lg font-semibold text-field">{c}</span>
-                  <span className="block text-sm font-normal text-muted">Until {fmtDate(fees.closes[i])}</span>
-                </th>
-              ))}
+              <th scope="col" className="bg-leaf px-6 py-5 align-bottom font-slab text-lg font-semibold text-field">Participant</th>
+              <th scope="col" className="bg-primary px-6 py-5 text-right align-bottom text-white">
+                <span className="mb-2 flex justify-end">{badge(true)}</span>
+                <span className="block font-slab text-xl font-semibold">{early}</span>
+                <span className="block text-sm font-normal text-white/80">Until {fmtDate(fees.closes[0])}</span>
+              </th>
+              <th scope="col" className="bg-leaf px-6 py-5 text-right align-bottom">
+                <span className="block font-slab text-lg font-semibold text-field">{regular}</span>
+                <span className="block text-sm font-normal text-muted">Until {fmtDate(fees.closes[1])}</span>
+              </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-black/5">
-            {fees.rows.map((r) => (
-              <tr key={r.who}>
+          <tbody>
+            {fees.rows.map((r, i) => (
+              <tr key={r.who} className={i > 0 ? "border-t border-black/5" : ""}>
                 <th scope="row" className="px-6 py-4 font-medium">{r.who}</th>
-                {r.amounts.map((a, i) => (
-                  <td key={i} className={`px-6 py-4 text-right font-slab text-lg ${i === 0 ? "font-semibold text-primary" : "text-ink"}`}>
-                    {money(a, r.currency)}
-                  </td>
-                ))}
+                <td className="border-x-2 border-primary/20 bg-primary/[0.07] px-6 py-4 text-right">
+                  <span className="block font-slab text-2xl font-bold text-primary">{money(r.amounts[0], r.currency)}</span>
+                  <span className="block text-xs font-medium text-primary/80">
+                    Save {money(r.amounts[1] - r.amounts[0], r.currency)}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-right font-slab text-lg text-ink/70">{money(r.amounts[1], r.currency)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+
+      {/* Phones */}
+      <ul className="flex flex-col gap-4 sm:hidden">
+        {fees.rows.map((r) => (
+          <li key={r.who} className="rounded-3xl border border-black/5 bg-white p-4 shadow-sm min-[360px]:p-5">
+            <h3 className="font-semibold">{r.who}</h3>
+            <dl className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-primary p-3 text-white min-[360px]:p-4">
+                <dt className="text-sm font-medium">{early}</dt>
+                <dd className="mt-1 font-slab text-xl font-bold leading-tight min-[360px]:text-2xl"><Price n={r.amounts[0]} currency={r.currency} /></dd>
+                <dd className="mt-1 text-xs text-white/85">Save {money(r.amounts[1] - r.amounts[0], r.currency)}</dd>
+              </div>
+              <div className="rounded-2xl bg-leaf p-3 min-[360px]:p-4">
+                <dt className="text-sm font-medium text-muted">{regular}</dt>
+                <dd className="mt-1 font-slab text-xl leading-tight text-ink/80 min-[360px]:text-2xl"><Price n={r.amounts[1]} currency={r.currency} /></dd>
+              </div>
+            </dl>
+          </li>
+        ))}
+        <li className="flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-sm text-muted">
+          {badge(false)}
+          <span>Early bird until {fmtDate(fees.closes[0])}; regular until {fmtDate(fees.closes[1])}.</span>
+        </li>
+      </ul>
+    </>
   );
 }
 
