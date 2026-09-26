@@ -20,6 +20,7 @@ const pages: { path: string; priority: number; changeFrequency: "weekly" | "mont
   { path: "/contact-us/", priority: 0.7, changeFrequency: "yearly" },
   { path: "/aginsight-flyer/", priority: 0.5, changeFrequency: "yearly" },
   { path: "/future-professionals/", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/past-editions/", priority: 0.5, changeFrequency: "yearly" },
   // AgInsight 2024 archive
   { path: "/aginsight-2024/", priority: 0.4, changeFrequency: "yearly" },
   { path: "/call-for-papers-2024/", priority: 0.3, changeFrequency: "yearly" },

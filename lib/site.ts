@@ -155,21 +155,47 @@ export const nav: NavItem[] = [
       { label: "Journals", href: "/journals/" },
     ],
   },
+  { label: "Accommodation", href: "/accommodation/" },
+  { label: "Contact", href: "/contact-us/" },
+];
+
+// Footer "Archive" column
+export const archiveLinks: NavItem[] = [
+  { label: "Past editions", href: "/past-editions/" },
+  { label: "Previous proceedings", href: "/previous-proceedings/" },
+  { label: "Gallery", href: "/gallery/" },
+];
+
+// The header as it was during AgInsight 2024, pointing at the archived 2024 pages
+export const nav2024: NavItem[] = [
   {
-    label: "Past editions",
-    href: "/aginsight-2024/",
+    label: "Conference",
+    href: "/call-for-papers-2024/",
     children: [
-      { label: "AgInsight 2024", href: "/aginsight-2024/" },
-      { label: "2024 speakers", href: "/chief-guest-and-keynote-speakers/" },
-      { label: "2024 call for papers", href: "/call-for-papers-2024/" },
-      { label: "2024 important dates", href: "/important-dates-2024/" },
-      { label: "2024 contacts", href: "/contact-us-2024/" },
+      { label: "Call for papers", href: "/call-for-papers-2024/" },
+      { label: "Important dates", href: "/important-dates-2024/" },
+      { label: "Submission guidelines", href: "/paper-submission-guidelines/" },
+      { label: "Speakers", href: "/chief-guest-and-keynote-speakers/" },
       { label: "Previous proceedings", href: "/previous-proceedings/" },
       { label: "Gallery", href: "/gallery/" },
     ],
   },
   { label: "Accommodation", href: "/accommodation/" },
-  { label: "Contact", href: "/contact-us/" },
+  { label: "Journals", href: "/journals/" },
+  { label: "Payments", href: "/payments/" },
+  { label: "Contact", href: "/contact-us-2024/" },
+];
+
+// Pages that belong to the 2024 edition and show the 2024 header
+export const archive2024Paths = [
+  "/aginsight-2024/",
+  "/call-for-papers-2024/",
+  "/important-dates-2024/",
+  "/contact-us-2024/",
+  "/chief-guest-and-keynote-speakers/",
+  "/prof-harold-corke/",
+  "/aginsight-flyer/",
+  "/future-professionals/",
 ];
 
 export const intro2024 =

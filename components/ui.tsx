@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { calendarUrl, committee, conf, nav, submitHref, usefulLinks } from "@/lib/site";
+import { archiveLinks, calendarUrl, committee, conf, nav, submitHref, usefulLinks } from "@/lib/site";
 
 export function PageTitle({ title, lead }: { title: string; lead?: string }) {
   return (
@@ -89,7 +89,7 @@ export function Venue() {
 }
 
 export function Footer() {
-  const [current, past] = nav;
+  const [current] = nav;
   const col = "font-slab text-lg font-semibold text-white";
   const link = "transition-colors hover:text-secondary";
   return (
@@ -114,15 +114,15 @@ export function Footer() {
           <div>
             <h2 className={col}>{current.label}</h2>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
-              {[...current.children!, ...nav.slice(2)].map((l) => (
+              {[...current.children!, ...nav.slice(1)].map((l) => (
                 <li key={l.href}><Link href={l.href} className={link}>{l.label}</Link></li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className={col}>{past.label}</h2>
+            <h2 className={col}>Archive</h2>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
-              {past.children!.map((l) => (
+              {archiveLinks.map((l) => (
                 <li key={l.href}><Link href={l.href} className={link}>{l.label}</Link></li>
               ))}
             </ul>
