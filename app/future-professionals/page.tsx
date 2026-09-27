@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Future Professionals" lead={`Join the ${conf.name} student team.`} />
+      <PageTitle archive title="Future Professionals" lead={`Join the ${conf.name} student team.`} />
 
       <section className="mx-auto max-w-6xl px-4 py-24">
         <div className="mb-12 flex gap-4 rounded-2xl border border-secondary/30 bg-leaf p-5">

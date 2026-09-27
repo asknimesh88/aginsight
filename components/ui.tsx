@@ -1,10 +1,27 @@
 import Link from "next/link";
 import { archiveLinks, calendarUrl, committee, conf, nav, submitHref, usefulLinks } from "@/lib/site";
 
-export function PageTitle({ title, lead }: { title: string; lead?: string }) {
+// Page banner. Current-edition pages use the drone photo (drone on the right, text on the left);
+// archive pages (AgInsight 2024 and earlier) keep the original rice-field banner.
+export function PageTitle({ title, lead, archive }: { title: string; lead?: string; archive?: boolean }) {
   return (
     <section className="relative isolate overflow-hidden bg-field text-white">
-      <img src="/brand/hero.jpg" alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25" />
+      {archive ? (
+        <img src="/brand/hero.jpg" alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25" />
+      ) : (
+        <>
+          <img
+            src="/photos/banner-drone-1920.webp"
+            srcSet="/photos/banner-drone-1280.webp 1280w, /photos/banner-drone-1920.webp 1920w, /photos/banner-drone-2560.webp 2560w"
+            sizes="100vw"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 -z-10 h-full w-full object-cover object-[78%_center]"
+          />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-field via-field/85 to-field/15" />
+        </>
+      )}
       <div className="mx-auto max-w-6xl px-4 pb-14 pt-16 sm:pt-20">
         <p className="mb-3 text-sm text-white/70">
           <Link href="/" className="hover:text-white">Home</Link> / {title}

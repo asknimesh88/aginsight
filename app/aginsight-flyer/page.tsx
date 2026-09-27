@@ -34,7 +34,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="AgInsight Flyer" lead={`The official flyer for ${conf.name}. Share it with colleagues and students.`} />
+      <PageTitle archive title="AgInsight Flyer" lead={`The official flyer for ${conf.name}. Share it with colleagues and students.`} />
       <section className="mx-auto max-w-6xl px-4 py-24">
         <div className="grid items-center gap-12 rounded-3xl bg-leaf p-8 sm:p-12 md:grid-cols-12 lg:gap-16">
           <a href={docs.flyer} target="_blank" rel="noopener" className="md:col-span-6">

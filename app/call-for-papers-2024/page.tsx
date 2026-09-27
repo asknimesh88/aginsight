@@ -30,7 +30,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="AgInsight 2024 Call for Papers" lead={conf.theme} />
+      <PageTitle archive title="AgInsight 2024 Call for Papers" lead={conf.theme} />
 
       {/* Perspective */}
       <section className="mx-auto grid max-w-6xl items-start gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">

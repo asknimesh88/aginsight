@@ -33,7 +33,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="AgInsight 2024 Contacts" lead="The AgInsight 2024 organising committee. For the current conference, see the AgInsight 2027 contact page." />
+      <PageTitle archive title="AgInsight 2024 Contacts" lead="The AgInsight 2024 organising committee. For the current conference, see the AgInsight 2027 contact page." />
 
       {/* Channels */}
       <section className="mx-auto max-w-6xl px-4 py-24">

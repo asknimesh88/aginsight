@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title={p.name} lead={`Keynote speaker at ${conf.name}, the ${conf.edition}.`} />
+      <PageTitle archive title={p.name} lead={`Keynote speaker at ${conf.name}, the ${conf.edition}.`} />
       <KeynoteProfile
         p={p}
         heading="Biography"

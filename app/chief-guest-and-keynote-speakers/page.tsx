@@ -53,7 +53,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="AgInsight 2024 Chief Guest and Keynote Speakers" lead={`The keynote speaker, guests of honour and plenary speakers at ${conf.name}.`} />
+      <PageTitle archive title="AgInsight 2024 Chief Guest and Keynote Speakers" lead={`The keynote speaker, guests of honour and plenary speakers at ${conf.name}.`} />
 
       <KeynoteProfile
         p={keynote}

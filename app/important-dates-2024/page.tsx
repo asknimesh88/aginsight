@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle
+      <PageTitle archive
         title="Important dates"
         lead={`From the call for abstracts on ${fmtDate(dates[0].date)} to the conference on ${conf.dates}.`}
       />

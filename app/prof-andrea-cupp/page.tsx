@@ -26,15 +26,15 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title={p.name} lead={`Keynote speaker at ${p.edition}, the 4th International Conference of Agricultural Sciences.`} />
+      <PageTitle archive title={p.name} lead={`Keynote speaker at ${p.edition}, the 4th International Conference of Agricultural Sciences.`} />
       <KeynoteProfile p={p} heading="Biography" label={`${p.edition} keynote`} />
       <section className="mx-auto max-w-6xl px-4 pb-24">
         <div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-leaf p-8 sm:p-10 md:flex-row md:items-center">
           <div>
-            <h2 className="font-slab text-2xl font-semibold text-field">Looking for this year’s speakers?</h2>
-            <p className="mt-2 text-ink/75">Prof. Cupp spoke at {p.edition}. See who is speaking at the current conference.</p>
+            <h2 className="font-slab text-2xl font-semibold text-field">Looking for the current conference?</h2>
+            <p className="mt-2 text-ink/75">Prof. Cupp spoke at {p.edition}. AgInsight 2027 takes place on 10–11 March 2027.</p>
           </div>
-          <Button href="/chief-guest-and-keynote-speakers/" variant="light">Current speakers</Button>
+          <Button href="/" variant="light">Go to AgInsight 2027</Button>
         </div>
       </section>
     </>
