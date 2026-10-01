@@ -154,8 +154,12 @@ export function Footer() {
                 </a>
               </li>
               {committee.map((c) => (
-                <li key={c.name} className="flex gap-3">
-                  <Icon d={c.phone ? icons.phone : icons.user} className="mt-0.5 shrink-0 text-secondary" />
+                <li key={c.name} className="flex items-center gap-3">
+                  {c.photo ? (
+                    <img src={`${c.photo}-400.webp`} alt="" width={40} height={40} loading="lazy" className="h-10 w-10 shrink-0 rounded-full object-cover ring-2 ring-white/20" />
+                  ) : (
+                    <Icon d={c.phone ? icons.phone : icons.user} className="mt-0.5 shrink-0 text-secondary" />
+                  )}
                   <span>
                     <span className="block text-white">{c.name}</span>
                     <span className="block text-white/60">{c.role}</span>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageTitle, Heading } from "@/components/ui";
 import JsonLd from "@/components/json-ld";
 import { committee, conf } from "@/lib/site";
-import { breadcrumbs, graph, pageMeta, webPage, ORG_ID } from "@/lib/seo";
+import { abs, breadcrumbs, graph, pageMeta, webPage, ORG_ID } from "@/lib/seo";
 
 const address = "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya 70140, Sri Lanka";
 
@@ -34,6 +34,7 @@ const schema = graph(
         "@type": "Person",
         name: c.name,
         jobTitle: `${c.role}, ${conf.name}`,
+        ...(c.photo && { image: abs(`${c.photo}-800.webp`) }),
         ...(c.email && { email: c.email }),
         ...(c.phone && { telephone: c.phone }),
       })),
@@ -79,9 +80,22 @@ export default function Page() {
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {committee.map((c) => (
               <li key={c.name} className="flex flex-col rounded-3xl bg-white p-8 shadow-sm">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-field font-slab text-lg font-semibold text-white" aria-hidden>
-                  {initials(c.name)}
-                </span>
+                {c.photo ? (
+                  <img
+                    src={`${c.photo}-400.webp`}
+                    srcSet={`${c.photo}-400.webp 400w, ${c.photo}-800.webp 800w`}
+                    sizes="112px"
+                    alt={`${c.name}, ${c.role} of ${conf.name}`}
+                    width={112}
+                    height={112}
+                    loading="lazy"
+                    className="h-28 w-28 rounded-full object-cover ring-4 ring-leaf"
+                  />
+                ) : (
+                  <span className="flex h-28 w-28 items-center justify-center rounded-full bg-field font-slab text-3xl font-semibold text-white" aria-hidden>
+                    {initials(c.name)}
+                  </span>
+                )}
                 <p className="mt-5 text-sm font-medium text-primary">{c.role}</p>
                 <h3 className="mt-1 font-slab text-xl font-semibold leading-snug">{c.name}</h3>
                 <div className="mt-auto flex flex-col gap-1 pt-5 text-sm">
