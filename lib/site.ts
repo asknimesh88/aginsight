@@ -111,9 +111,9 @@ export const programme = [
 
 // Phone numbers and emails to be added when the committee confirms them
 export const committee: { name: string; role: string; phone?: string; email?: string; photo?: string }[] = [
-  { name: "Prof. T. Sanjeewa Prasad Jayaweera", role: "Chairperson", photo: "/people/2027/sanjeewa-jayaweera" },
-  { name: "Dr. R. N. N. Perera", role: "Secretary", photo: "/people/2027/rnn-perera" },
-  { name: "Dr. P. Sivashankar", role: "Coordinator", photo: "/people/2027/p-sivashankar" },
+  { name: "Prof. T. Sanjeewa Prasad Jayaweera", role: "Chairperson", photo: "/people/2027/sanjeewa-jayaweera-v2" },
+  { name: "Dr. R. N. N. Perera", role: "Secretary", photo: "/people/2027/rnn-perera-v2" },
+  { name: "Dr. P. Sivashankar", role: "Coordinator", photo: "/people/2027/p-sivashankar-v2" },
 ];
 
 // ---------------- AgInsight 2024 (archive pages) ----------------
