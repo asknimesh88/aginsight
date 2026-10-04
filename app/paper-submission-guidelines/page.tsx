@@ -5,7 +5,7 @@ import { breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
 
 const steps = [
   { title: "Download the template", text: "Start from the official abstract template so the page size and fonts are already set." },
-  { title: "Write both versions", text: "Prepare the abstract and an extended abstract. The extended abstract is for review only." },
+  { title: "Write both parts", text: "Write the abstract and the extended abstract in the same template. Extended abstracts are published online." },
   { title: "Remove your identity", text: "Leave out names, initials and affiliations. Review is double-blind." },
   { title: "Submit through CMT", text: "Upload everything as a single MS Word document (.doc or .docx)." },
 ];
@@ -13,8 +13,8 @@ const steps = [
 const seo = {
   path: "/paper-submission-guidelines/",
   title: "Paper Submission Guidelines",
-  description: "How to format and submit your AgInsight abstract: the B5 template, title and keyword rules, double-blind review and submission through Microsoft CMT.",
-  keywords: ["AgInsight paper submission guidelines", "abstract format", "abstract template", "Microsoft CMT submission", "Journal of Agricultural Sciences Sri Lanka"],
+  description: "How to format your AgInsight 2027 abstract and extended abstract: the template, section word limits, double-blind review and submission through CMT.",
+  keywords: ["AgInsight paper submission guidelines", "AgInsight 2027 extended abstract", "abstract format", "abstract template", "Microsoft CMT submission"],
 };
 export const metadata = pageMeta(seo);
 const schema = graph(
@@ -22,9 +22,9 @@ const schema = graph(
   breadcrumbs([{ name: "Paper Submission Guidelines", path: seo.path }]),
   {
     "@type": "HowTo",
-    name: "How to submit an abstract to AgInsight 2024",
+    name: "How to submit an abstract to AgInsight 2027",
     description: seo.description,
-    tool: [{ "@type": "HowToTool", name: "AgInsight abstract template (MS Word)" }],
+    tool: [{ "@type": "HowToTool", name: "AgInsight 2027 abstract template (MS Word)" }],
     step: steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.title, text: s.text })),
   },
 );
@@ -51,18 +51,36 @@ const rules: { label: string; text: React.ReactNode; example?: React.ReactNode }
   },
   {
     label: "Body",
-    text: "Times New Roman, justified, single-spaced, one paragraph, ideally under 400 words. Cover the purpose, the method, the main findings and why they matter. Don’t repeat the title, and don’t use citations or abbreviations unless an abbreviation appears more than once and is defined at first use.",
+    text: "Times New Roman 12 pt, justified, single-spaced, one paragraph, ideally under 400 words. Cover the purpose, the method, the main findings and why they matter. Don’t repeat the title, and don’t use citations or abbreviations unless an abbreviation appears more than once and is defined at first use.",
   },
   {
     label: "Keywords",
     text: "Up to 6 keywords in italics and alphabetical order, each starting with a capital letter and separated by commas.",
-    example: <em>Faba bean, Grain yield, Inter row, Legumes, Rhizobium</em>,
+    example: <em>Faba bean, Grain yield, Inter-row, Legumes, Rhizobium</em>,
   },
 ];
 
+// Extended abstract structure, from the AgInsight 2027 template
+const extendedRules = [
+  { label: "Page", text: "A4 page size with a 2.54 cm margin on each side (the second part of the template is already set up)." },
+  { label: "Text", text: "Times New Roman 12 pt, single-spaced, in every section." },
+  { label: "Authors", text: "No author information anywhere in the extended abstract. Review is double-blind." },
+];
+
+const sections: { name: string; words?: number; text: string }[] = [
+  { name: "Introduction", words: 250, text: "Enough background to frame the study, highlighting key literature, with clear aims and objectives." },
+  { name: "Materials and methods", words: 250, text: "Describe the materials and methods in enough detail for a reader to repeat the study. Several paragraphs are fine." },
+  { name: "Results and discussion", words: 500, text: "Present the main findings and discuss them against the literature where needed. Several paragraphs are fine." },
+  { name: "Conclusions", words: 100, text: "A single paragraph." },
+  { name: "References", text: "Up to 5 key references, in APA style." },
+  { name: "Acknowledgement", text: "Optional." },
+];
+const maxWords = Math.max(...sections.map((s) => s.words ?? 0));
+const totalWords = sections.reduce((n, s) => n + (s.words ?? 0), 0);
+
 const downloads = [
-  { href: docs.template, title: "Abstract template", meta: "Word document" },
-  { href: docs.declaration, title: "Author declaration form", meta: "PDF" },
+  { href: docs.template, title: "Abstract and extended abstract template", meta: "Word document, 2027" },
+  { href: docs.declaration, title: "Author declaration form", meta: "PDF, 2027" },
   { href: "https://jas.sljol.info/about/submissions/", title: "Journal author guidelines", meta: "For full papers, on jas.sljol.info" },
 ];
 
@@ -78,7 +96,7 @@ export default function Page() {
       <JsonLd data={schema} />
       <PageTitle
         title="Paper submission guidelines"
-        lead="How to format and submit your abstract. Only the abstract is published; the extended abstract is used for review."
+        lead="How to format and submit your abstract and extended abstract for AgInsight 2027. Extended abstracts are published online."
       />
 
       {/* Steps */}
@@ -118,6 +136,61 @@ export default function Page() {
               </div>
             ))}
           </dl>
+
+          {/* Extended abstract */}
+          <div id="extended-abstract" className="mt-24 scroll-mt-24">
+            <Heading
+              title="Extended abstract format"
+              lead="The extended abstract follows the abstract in the same template, with the same title and keywords."
+            />
+            <dl className="mt-12 divide-y divide-black/10 border-y border-black/10">
+              {extendedRules.map((r) => (
+                <div key={r.label} className="grid gap-2 py-7 sm:grid-cols-[8rem_1fr] sm:gap-8">
+                  <dt className="font-slab text-lg font-semibold text-field">{r.label}</dt>
+                  <dd className="leading-relaxed text-ink/85">{r.text}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <h3 className="mt-14 font-slab text-2xl font-semibold text-field">Sections, in this order</h3>
+            <p className="mt-2 text-muted">Up to {totalWords.toLocaleString("en-US")} words across the written sections.</p>
+            <ol className="mt-8 flex flex-col gap-3">
+              {sections.map((s, i) => (
+                <li key={s.name} className="grid grid-cols-[2.5rem_1fr] gap-4 rounded-2xl bg-leaf p-5 sm:grid-cols-[2.5rem_1fr_9rem] sm:items-center">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-slab font-semibold text-white">{i + 1}</span>
+                  <div>
+                    <p className="font-semibold text-ink">{s.name}</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-ink/75">{s.text}</p>
+                  </div>
+                  <div className="col-start-2 sm:col-start-auto">
+                    {s.words ? (
+                      <>
+                        <p className="text-sm font-medium text-field sm:text-right">Max {s.words} words</p>
+                        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white" aria-hidden>
+                          <div className="h-full rounded-full bg-secondary" style={{ width: `${(s.words / maxWords) * 100}%` }} />
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-sm text-muted sm:text-right">{s.name === "References" ? "Max 5" : "Optional"}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-10 rounded-3xl border border-black/10 p-6 sm:p-8">
+              <h3 className="font-slab text-xl font-semibold text-field">Tables and figures</h3>
+              <ul className="mt-4 flex list-disc flex-col gap-2 pl-5 leading-relaxed text-ink/85 marker:text-secondary">
+                <li>At most 1 table and 1 figure in the whole extended abstract, placed in the methods or the results.</li>
+                <li>Centre every table and figure. Figures must be in a resolution good enough for publication.</li>
+                <li>Captions in sentence case, bold, Times New Roman 12 pt.</li>
+              </ul>
+              <p className="mt-5 text-sm text-muted">Example caption</p>
+              <p className="mt-2 rounded-xl border-l-4 border-secondary bg-leaf px-5 py-3 font-serif leading-relaxed text-ink">
+                <strong>Table 01. Yield of pepper under three irrigation regimes</strong>
+              </p>
+            </div>
+          </div>
         </div>
 
         <aside className="order-first lg:order-none lg:col-span-4">
