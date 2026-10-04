@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto, Roboto_Slab } from "next/font/google";
 import Header from "@/components/header";
+import CmtNotice from "@/components/cmt-notice";
 import { Footer } from "@/components/ui";
 import JsonLd from "@/components/json-ld";
 import { conf } from "@/lib/site";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${roboto.variable} ${robotoSlab.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <JsonLd data={graph(organization, website)} />
+        <CmtNotice />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
