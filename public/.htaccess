@@ -19,6 +19,10 @@ RedirectMatch 404 "/\.(?!well-known/)"
   # Old WordPress front-page URLs -> homepage
   RewriteRule ^home-(2024|1)/?$ / [R=301,L]
 
+  # 2024 abstract template and author declaration -> 2027 versions
+  RewriteRule ^wp\-content/uploads/2019/05/Abstract\-Guidelines\-Aginsight\-2024\-No\-Author\-Information\.docx$ /wp-content/uploads/2026/10/Abstract-Guidelines-Aginsight-2027-No-Author-Information.docx [R=301,L]
+  RewriteRule ^wp\-content/uploads/2019/05/Author\-Declaration\-AgInsight\-2024\.pdf$ /wp-content/uploads/2026/10/Author-Declaration-AgInsight-2027.pdf [R=301,L]
+
   # Old WordPress "/index.php/page-name/" permalinks -> clean URLs
   RewriteRule ^index\.php/(.+)$ /$1 [R=301,L]
 </IfModule>

@@ -135,8 +135,9 @@ export const conf2024: Conf = {
 // Documents keep their original WordPress upload URLs (linked from emails, CMT and search results)
 const up = "/wp-content/uploads";
 export const docs = {
-  template: `${up}/2019/05/Abstract-Guidelines-Aginsight-2024-No-Author-Information.docx`,
-  declaration: `${up}/2019/05/Author-Declaration-AgInsight-2024.pdf`,
+  // 2027 versions; the old 2024 URLs redirect here (public/.htaccess, public/_redirects)
+  template: `${up}/2026/10/Abstract-Guidelines-Aginsight-2027-No-Author-Information.docx`,
+  declaration: `${up}/2026/10/Author-Declaration-AgInsight-2027.pdf`,
   flyer: `${up}/2024/05/WhatsApp-Image-2024-05-06-at-13.17.19_da7d7bde.jpg`,
   futureProfessionals: `${up}/2024/07/AgInsight-2024-Headhunting.pdf`,
 };
