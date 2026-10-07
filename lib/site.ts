@@ -15,7 +15,8 @@ export const conf: Conf = {
   format: "Physical conference",
   venue: "Faculty of Agricultural Sciences, Sabaragamuwa University of Sri Lanka, Belihuloya",
   email: "aginsight@agri.sab.ac.lk",
-  // submitUrl / registerUrl: add when the CMT site and registration form open
+  submitUrl: "https://cmt3.research.microsoft.com/AgInsight2027",
+  // registerUrl: add when the registration form opens
   startsAt: "2027-03-10T14:00:00+05:30", // day 1 registration opens (programme)
   endsAt: "2027-03-11T17:45:00+05:30", // closing ceremony ends
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sabaragamuwa+University+of+Sri+Lanka",

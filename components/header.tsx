@@ -13,6 +13,8 @@ export default function Header() {
   const is2024 = archive2024Paths.includes(path.endsWith("/") ? path : `${path}/`);
   const items = is2024 ? nav2024 : nav;
   const cta = is2024 ? { href: "/", label: conf.name } : { href: submitHref, label: ctaLabel };
+  // External links (CMT) always open in a new tab
+  const ctaTarget = cta.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {};
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
@@ -64,7 +66,7 @@ export default function Header() {
               </Link>
             ),
           )}
-          <a href={cta.href} className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[15px] font-medium text-white hover:bg-field">
+          <a href={cta.href} {...ctaTarget} className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[15px] font-medium text-white hover:bg-field">
             {cta.label}
           </a>
         </nav>
@@ -83,7 +85,7 @@ export default function Header() {
                 {c.label}
               </Link>
             ))}
-            <a href={cta.href} className="mt-5 block rounded-full bg-primary py-3 text-center font-medium text-white">
+            <a href={cta.href} {...ctaTarget} className="mt-5 block rounded-full bg-primary py-3 text-center font-medium text-white">
               {cta.label}
             </a>
           </nav>
