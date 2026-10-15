@@ -13,7 +13,7 @@ const Price = ({ n, currency, className = "" }: { n: number; currency: string; c
 const money = (n: number, currency: string) => (currency === "USD" ? `USD ${n}` : `LKR ${n.toLocaleString("en-US")}`);
 
 // Five tracks as a photo mosaic: two wide cards on top, three below
-export function TrackGrid({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" }) {
+export function TrackGrid({ headingLevel = "h3", linkToTopics = false }: { headingLevel?: "h2" | "h3"; linkToTopics?: boolean }) {
   const H = headingLevel;
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -33,7 +33,11 @@ export function TrackGrid({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" 
           <div className={`flex flex-col justify-end p-6 sm:p-8 ${i < 2 ? "min-h-72 lg:min-h-80" : "min-h-64"}`}>
             <span className="text-sm font-medium text-white/80">Track {i + 1}</span>
             <H className="mt-1 font-slab text-2xl font-semibold leading-tight text-white">{t.title}</H>
-            <p className="mt-2 text-sm text-white/75">Professional forum and student forum</p>
+            {linkToTopics && (
+              <a href={`#track-${i + 1}`} className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-secondary hover:text-white">
+                View track topics <span aria-hidden>→</span>
+              </a>
+            )}
           </div>
         </li>
       ))}

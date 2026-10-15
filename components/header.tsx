@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { archive2024Paths, conf, nav, nav2024, submitHref } from "@/lib/site";
 
-const ctaLabel = conf.submitUrl ? "Submit abstract" : "Call for papers";
+const ctaLabel = conf.submitUrl ? "Abstract Submission" : "Call for papers";
 
 export default function Header() {
   const path = usePathname();

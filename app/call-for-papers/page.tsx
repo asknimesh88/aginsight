@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageTitle, Heading, Button, Photo, Venue } from "@/components/ui";
 import { TrackGrid } from "@/components/edition";
 import JsonLd from "@/components/json-ld";
-import { about, conf, dates, deadline, focusAreas, fmtDate, publication, themeRationale } from "@/lib/site";
+import { about, conf, dates, deadline, focusAreas, fmtDate, publication, themeRationale, tracks } from "@/lib/site";
 import { breadcrumbs, event, graph, pageMeta, webPage } from "@/lib/seo";
 
 const opens = dates[0];
@@ -30,7 +30,7 @@ export default function Page() {
       {/* Theme */}
       <section className="mx-auto grid max-w-6xl items-start gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <Heading title="The theme" lead={conf.theme} />
+          <Heading title="Conference Theme" lead={conf.theme} />
           <div className="mt-8 flex flex-col gap-5 text-lg leading-relaxed text-ink/85">
             <p>{themeRationale}</p>
             <p>{about[0]}</p>
@@ -81,9 +81,35 @@ export default function Page() {
       {/* Tracks */}
       <section id="tracks" className="scroll-mt-18 bg-leaf">
         <div className="mx-auto max-w-6xl px-4 py-24">
-          <Heading title="Session tracks" lead="Submit under the track closest to your work. Every track has a professional forum and a student forum." />
+          <Heading title="Session tracks" lead="Select the track that best aligns with your work. Each track offers both a Professional Forum and a Student Forum." />
           <div className="mt-12">
-            <TrackGrid />
+            <TrackGrid linkToTopics />
+          </div>
+
+          {/* Track topics */}
+          <div className="mt-20 flex flex-col gap-12">
+            {tracks.map((t, i) => (
+              <div key={t.title} id={`track-${i + 1}`} className="scroll-mt-24 rounded-3xl border border-black/5 bg-white p-8 shadow-sm sm:p-10">
+                <p className="text-sm font-medium text-primary">Track {i + 1}</p>
+                <h3 className="mt-1 font-slab text-2xl font-semibold text-field">{t.title}</h3>
+                <p className="mt-3 text-ink/75 italic">{t.description}</p>
+                <p className="mt-5 font-semibold">Topics may include, but are not limited to:</p>
+                <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {t.topics.map((topic) => (
+                    <li key={topic} className="flex gap-3 leading-snug text-ink/85">
+                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-secondary" aria-hidden />
+                      {topic}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 rounded-2xl bg-white/80 p-6 text-center">
+            <p className="text-ink/80">
+              <strong>Not sure which track fits your work?</strong> Select the track that most closely aligns with your study. The Scientific Committee may reassign submissions to a more appropriate track where necessary.
+            </p>
           </div>
         </div>
       </section>
@@ -127,7 +153,7 @@ export default function Page() {
           <div className="mt-8 flex flex-wrap gap-3">
             {conf.submitUrl && <Button href={conf.submitUrl}>Submit your abstract</Button>}
             <Button href="/paper-submission-guidelines/" variant={conf.submitUrl ? "ghost" : "solid"}>Submission guidelines</Button>
-            <Button href="/important-dates/" variant="ghost">All important dates</Button>
+            <Button href="/important-dates/" variant="ghost">Important dates</Button>
           </div>
         </article>
       </section>

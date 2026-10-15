@@ -47,7 +47,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Contact Us" lead={`Questions about ${conf.name} submissions, registration or the venue? The organising committee is here to help.`} />
+      <PageTitle title="Contact Us" lead={`Have a question about ${conf.name}, submissions, registration, or the venue? Our organising committee is here to help.`} />
 
       {/* Channels */}
       <section className="mx-auto max-w-6xl px-4 py-24">
