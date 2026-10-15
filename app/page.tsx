@@ -5,7 +5,7 @@ import NextMilestone from "@/components/next-milestone";
 import Countdown from "@/components/countdown";
 import DatesRail from "@/components/dates-rail";
 import JsonLd from "@/components/json-ld";
-import { about, conf, dates, focusAreas, publication, submitHref, themeRationale, tracks } from "@/lib/site";
+import { about, conf, dates, focusAreas, publication, submitHref, themeDisplay, themeRationale, tracks } from "@/lib/site";
 import { event, graph, pageMeta, webPage } from "@/lib/seo";
 
 const seo = {
@@ -54,7 +54,7 @@ export default function Home() {
             AgInsight
             <span className="block text-secondary">2027</span>
           </h1>
-          <p className="mt-8 max-w-2xl font-slab text-2xl leading-snug sm:text-3xl">{conf.theme}</p>
+          <p className="mt-8 max-w-2xl font-slab text-2xl font-bold leading-snug sm:text-3xl">{themeDisplay}</p>
           <div className="mt-8">
             <NextMilestone items={dates} buildTime={BUILD_TIME} />
           </div>

@@ -22,6 +22,9 @@ export const conf: Conf = {
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Sabaragamuwa+University+of+Sri+Lanka",
 };
 
+// Theme for display: a non-breaking hyphen keeps "Well-Being" on one line
+export const themeDisplay = conf.theme.replace(/-/g, "‑");
+
 // Where "Submit" buttons go until the CMT link exists
 export const submitHref = conf.submitUrl ?? "/call-for-papers/#how-to-submit";
 

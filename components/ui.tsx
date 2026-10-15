@@ -3,7 +3,7 @@ import { archiveLinks, calendarUrl, committee, conf, nav, submitHref, usefulLink
 
 // Page banner. Current-edition pages use the drone photo (drone on the right, text on the left);
 // archive pages (AgInsight 2024 and earlier) keep the original rice-field banner.
-export function PageTitle({ title, lead, archive }: { title: string; lead?: string; archive?: boolean }) {
+export function PageTitle({ title, lead, archive }: { title: string; lead?: React.ReactNode; archive?: boolean }) {
   return (
     <section className="relative isolate overflow-hidden bg-field text-white">
       {archive ? (
@@ -214,7 +214,7 @@ export function Photo({ name, alt, sizes = "(min-width: 1024px) 50vw, 100vw", cl
   );
 }
 
-export function Heading({ title, lead, link, center, dark }: { title: string; lead?: string; link?: { href: string; label: string }; center?: boolean; dark?: boolean }) {
+export function Heading({ title, lead, link, center, dark }: { title: string; lead?: React.ReactNode; link?: { href: string; label: string }; center?: boolean; dark?: boolean }) {
   return (
     <div className={center ? "text-center" : "flex flex-wrap items-end justify-between gap-x-8 gap-y-4"}>
       <div className={center ? "mx-auto max-w-2xl" : "max-w-2xl"}>

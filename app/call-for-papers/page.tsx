@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageTitle, Heading, Button, Photo, Venue } from "@/components/ui";
 import { TrackGrid } from "@/components/edition";
 import JsonLd from "@/components/json-ld";
-import { about, conf, dates, deadline, focusAreas, fmtDate, publication, themeRationale, tracks } from "@/lib/site";
+import { about, conf, dates, deadline, focusAreas, fmtDate, publication, themeDisplay, themeRationale, tracks } from "@/lib/site";
 import { breadcrumbs, event, graph, pageMeta, webPage } from "@/lib/seo";
 
 const opens = dates[0];
@@ -25,12 +25,12 @@ export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Call for Papers" lead={`${conf.name}: ${conf.theme}`} />
+      <PageTitle title="Call for Papers" lead={<>{conf.name}: <strong className="font-bold text-white">{themeDisplay}</strong></>} />
 
       {/* Theme */}
       <section className="mx-auto grid max-w-6xl items-start gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <Heading title="Conference Theme" lead={conf.theme} />
+          <Heading title="Conference Theme" lead={<strong className="font-slab font-bold text-field">{themeDisplay}</strong>} />
           <div className="mt-8 flex flex-col gap-5 text-lg leading-relaxed text-ink/85">
             <p>{themeRationale}</p>
             <p>{about[0]}</p>
