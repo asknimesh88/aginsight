@@ -71,7 +71,7 @@ export function Venue() {
   const rows = [
     { icon: icons.calendar, label: "When", value: conf.dates },
     { icon: icons.pin, label: "Where", value: conf.venue },
-    { icon: icons.globe, label: "Format", value: `${conf.format}, with professional and student forums` },
+    { icon: icons.globe, label: "Format", value: `${conf.format} with Professional and Student Forums` },
   ];
   return (
     <section className="mx-auto max-w-6xl px-4 pb-24">

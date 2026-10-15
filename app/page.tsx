@@ -121,7 +121,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-24">
           <Heading
             title="Five session tracks"
-            lead="Each track runs a professional forum and a student forum."
+            lead="Select the track that best aligns with your work. Each track offers both a Professional Forum and a Student Forum."
             link={{ href: "/call-for-papers/#tracks", label: "Track details" }}
           />
           <div className="mt-12">

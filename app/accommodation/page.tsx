@@ -38,10 +38,9 @@ export default function Page() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 8h.01M11 12h1v5h1" /><circle cx="12" cy="12" r="9" /></svg>
           </span>
           <div>
-            <h2 className="font-slab text-lg font-semibold text-field">Book your own stay</h2>
+            <h2 className="font-slab text-lg font-semibold text-field">Arrange Your Accommodation</h2>
             <p className="mt-1 leading-relaxed text-ink/80">
-              Contact the hotel directly or book through Booking.com or Tripadvisor. The organisers can’t take responsibility for
-              participants’ accommodation.
+              Participants are requested to arrange their own accommodation. Please contact your preferred hotel directly or make a reservation through Booking.com, Tripadvisor, or another booking platform. The conference organisers are unable to arrange or manage accommodation on behalf of participants.
             </p>
           </div>
         </div>

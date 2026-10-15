@@ -5,8 +5,8 @@ import { breadcrumbs, graph, pageMeta, webPage } from "@/lib/seo";
 
 const steps = [
   { title: "Download the template", text: "Start from the official abstract template so the page size and fonts are already set." },
-  { title: "Write both parts", text: "Write the abstract and the extended abstract in the same template. Extended abstracts are published online." },
-  { title: "Remove your identity", text: "Leave out names, initials and affiliations. Review is double-blind." },
+  { title: "Prepare both abstracts", text: "Write the abstract and the extended abstract in the same template. Extended abstracts are published online." },
+  { title: "Remove identifying information", text: "Leave out names, initials and affiliations. Review is double-blind." },
   { title: "Submit through CMT", text: "Upload everything as a single MS Word document (.doc or .docx)." },
 ];
 
@@ -120,7 +120,7 @@ export default function Page() {
       {/* Rules + downloads */}
       <section className="mx-auto grid max-w-6xl gap-12 px-4 py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-8">
-          <Heading title="Abstract format" lead="Follow these rules strictly. The template already applies most of them." />
+          <Heading title="Abstract format" lead="Please follow the formatting requirements below. Most are already incorporated into the abstract template." />
           <dl className="mt-12 divide-y divide-black/10 border-y border-black/10">
             {rules.map((r) => (
               <div key={r.label} className="grid gap-2 py-7 sm:grid-cols-[8rem_1fr] sm:gap-8">
