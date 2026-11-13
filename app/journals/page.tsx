@@ -17,11 +17,14 @@ const types = [
   { title: "Book reviews", d: "M4 5a2 2 0 012-2h12v16H6a2 2 0 00-2 2V5zM8 7h6M8 11h6" },
 ];
 
+// Second publication outlet for selected AgInsight abstracts
+const SUSLJ = { name: "Sabaragamuwa University Journal", short: "SUSLJ", url: "https://suslj.sljol.info/" };
+
 const seo = {
   path: "/journals/",
   title: "Journals",
-  description: "Publish your AgInsight paper in the Journal of Agricultural Sciences – Sri Lanka (JASSL), indexed in Web of Science, Scopus, DOAJ and EBSCO.",
-  keywords: ["Journal of Agricultural Sciences Sri Lanka", "JASSL", "agriculture journal Sri Lanka", "Scopus indexed agriculture journal", "AgInsight journals"],
+  description: "Publish your AgInsight work in the Journal of Agricultural Sciences – Sri Lanka (JASSL) or, for selected abstracts, the Sabaragamuwa University Journal.",
+  keywords: ["Journal of Agricultural Sciences Sri Lanka", "JASSL", "Sabaragamuwa University Journal", "SUSLJ", "agriculture journal Sri Lanka", "AgInsight journals"],
   image: { url: "/docs/journal.png", alt: "Journal of Agricultural Sciences – Sri Lanka cover" },
 };
 export const metadata = pageMeta(seo);
@@ -38,13 +41,20 @@ const schema = graph(
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
   },
+  {
+    "@type": "Periodical",
+    name: SUSLJ.name,
+    alternateName: SUSLJ.short,
+    url: SUSLJ.url,
+    inLanguage: "en",
+  },
 );
 
 export default function Page() {
   return (
     <>
       <JsonLd data={schema} />
-      <PageTitle title="Journals" lead="Selected AgInsight papers can go on to publication in the faculty’s peer-reviewed journal." />
+      <PageTitle title="Journals" lead="Selected AgInsight papers can go on to publication in the faculty’s peer-reviewed journal, and selected abstracts in the Sabaragamuwa University Journal." />
 
       {/* Journal feature */}
       <section className="mx-auto max-w-6xl px-4 py-24">
@@ -104,6 +114,23 @@ export default function Page() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Second journal: Sabaragamuwa University Journal */}
+      <section className="mx-auto max-w-6xl px-4 pt-24">
+        <div className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-black/10 bg-white p-8 shadow-sm sm:p-12 md:flex-row md:items-center">
+          <div className="max-w-2xl">
+            <span className="rounded-full bg-leaf px-3 py-1 text-sm font-medium text-primary">Also for selected abstracts</span>
+            <h2 className="mt-5 font-slab text-3xl font-semibold tracking-tight text-field">{SUSLJ.name}</h2>
+            <p className="mt-2 text-lg text-muted">{SUSLJ.short}</p>
+            <p className="mt-5 text-lg leading-relaxed text-ink/85">
+              Selected abstracts from AgInsight can also be published in the {SUSLJ.name}.
+            </p>
+          </div>
+          <div className="md:shrink-0">
+            <Button href={SUSLJ.url}>Visit the journal</Button>
+          </div>
         </div>
       </section>
 
