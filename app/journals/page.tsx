@@ -18,13 +18,27 @@ const types = [
 ];
 
 // Second publication outlet for selected AgInsight abstracts
-const SUSLJ = { name: "Sabaragamuwa University Journal", short: "SUSLJ", url: "https://suslj.sljol.info/" };
+// Details from the journal's page: https://www.sab.ac.lk/crkd/susl-journal-about
+const SUSLJ = {
+  name: "Sabaragamuwa University Journal",
+  short: "SUSL Journal",
+  url: "https://suslj.sljol.info/",
+  about: "https://www.sab.ac.lk/crkd/susl-journal-about",
+  publisher: "Centre for Research and Knowledge Dissemination, Sabaragamuwa University of Sri Lanka",
+  scope:
+    "A multidisciplinary journal covering agriculture, science and technology, social sciences and humanities, and management studies. It publishes research articles, reviews and research communications.",
+  facts: [
+    { label: "Issues per year", value: "2" },
+    { label: "Published in", value: "June, December" },
+    { label: "Publisher", value: "CRKD, SUSL" },
+  ],
+};
 
 const seo = {
   path: "/journals/",
   title: "Journals",
   description: "Publish your AgInsight work in the Journal of Agricultural Sciences – Sri Lanka (JASSL) or, for selected abstracts, the Sabaragamuwa University Journal.",
-  keywords: ["Journal of Agricultural Sciences Sri Lanka", "JASSL", "Sabaragamuwa University Journal", "SUSLJ", "agriculture journal Sri Lanka", "AgInsight journals"],
+  keywords: ["Journal of Agricultural Sciences Sri Lanka", "JASSL", "Sabaragamuwa University Journal", "SUSL Journal", "agriculture journal Sri Lanka", "AgInsight journals"],
   image: { url: "/docs/journal.png", alt: "Journal of Agricultural Sciences – Sri Lanka cover" },
 };
 export const metadata = pageMeta(seo);
@@ -46,6 +60,9 @@ const schema = graph(
     name: SUSLJ.name,
     alternateName: SUSLJ.short,
     url: SUSLJ.url,
+    sameAs: SUSLJ.about,
+    description: SUSLJ.scope,
+    publisher: { "@type": "Organization", name: SUSLJ.publisher },
     inLanguage: "en",
   },
 );
@@ -127,9 +144,19 @@ export default function Page() {
             <p className="mt-5 text-lg leading-relaxed text-ink/85">
               Selected abstracts from AgInsight can also be published in the {SUSLJ.name}.
             </p>
+            <p className="mt-3 leading-relaxed text-ink/75">{SUSLJ.scope}</p>
+            <dl className="mt-8 grid gap-6 sm:grid-cols-3">
+              {SUSLJ.facts.map((f) => (
+                <div key={f.label} className="border-t-2 border-primary/20 pt-3">
+                  <dt className="text-sm text-muted">{f.label}</dt>
+                  <dd className="mt-1 font-medium leading-snug">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <div className="md:shrink-0">
+          <div className="flex flex-wrap gap-3 md:shrink-0 md:flex-col">
             <Button href={SUSLJ.url}>Visit the journal</Button>
+            <Button href={SUSLJ.about} variant="light">About the journal</Button>
           </div>
         </div>
       </section>
