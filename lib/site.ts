@@ -168,7 +168,7 @@ export const publication = [
 // Stage names group the timeline; labels are shown to visitors
 export const dates = [
   { date: "2026-10-05", label: "Extended abstract submission opens", stage: "Submission", note: "Start submitting your extended abstract." },
-  { date: "2026-11-15", label: "Extended abstract submission deadline", stage: "Submission", note: "Last day to submit your extended abstract." },
+  { date: "2026-12-06", label: "Extended abstract submission deadline", stage: "Submission", note: "Last day to submit your extended abstract." },
   { date: "2027-01-15", label: "Notification of acceptance", stage: "Review", note: "Authors are told whether their abstract has been accepted." },
   { date: "2027-01-22", label: "Early bird registration closes", stage: "Registration", note: "Last day to register at the early bird rate." },
   { date: "2027-01-25", label: "Final abstract submission", stage: "Review", note: "Submit the final version of your accepted abstract." },
