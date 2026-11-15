@@ -52,6 +52,6 @@ jobs:
       - name: Check the live site
         run: |
           for u in / /call-for-papers/ /sitemap.xml; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" "http://aginsight.agri.sab.ac.lk$u")
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://aginsight.agri.sab.ac.lk$u")
             echo "$code $u"; [ "$code" = 200 ]
           done
