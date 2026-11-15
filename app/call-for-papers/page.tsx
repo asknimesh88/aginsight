@@ -10,7 +10,7 @@ const opens = dates[0];
 const seo = {
   path: "/call-for-papers/",
   title: "Call for Papers 2027",
-  description: "AgInsight 2027 call for papers: submit extended abstracts from 5 October to 15 November 2026 across five tracks, from agri-environment to One Health.",
+  description: "AgInsight 2027 call for papers: submit extended abstracts from 5 October to 6 December 2026 across five tracks, from agri-environment to One Health.",
   keywords: ["AgInsight 2027 call for papers", "call for papers agriculture 2027", "extended abstract submission", "agricultural sciences conference Sri Lanka", "One Health and food safety"],
   image: { url: "/photos/drone-over-crop-field-1600.webp", width: 1600, height: 873, alt: "An agricultural drone flying low over a green crop field" },
 };
